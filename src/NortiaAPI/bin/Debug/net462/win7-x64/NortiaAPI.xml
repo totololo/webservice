@@ -86,7 +86,7 @@
             Update one parcours client souscription.
             </summary>
             <remarks>
-            Client property absent or null ==> unchanged
+            Client property not present or null ==> unchanged
             </remarks>
             <param name="id">The parcours client souscription id</param>
             <param name="client">The parcours client connaissance client PP client properties</param>
@@ -100,7 +100,7 @@
             Update one parcours client souscription (client - Etape1).
             </summary>
             <remarks>
-            Client property absent or null ==> unchanged
+            Client property not present or null ==> unchanged
             </remarks>        
             <param name="id">The parcours client souscription id</param>
             <param name="clientE1">The parcours client connaissance client PP client step 1 properties</param>
@@ -114,7 +114,7 @@
             Update one parcours client souscription (client - Etape2).
             </summary>
             <remarks>
-            Client property absent or null ==> unchanged
+            Client property not present or null ==> unchanged
             </remarks>
             <param name="id">The parcours client connaissance client PP id</param>
             <param name="clientE2">The parcours client connaissance client PP client step 2 properties</param>

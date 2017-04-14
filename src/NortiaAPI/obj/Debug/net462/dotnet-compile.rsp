@@ -1,5 +1,5 @@
---temp-output:c:\DEV\WebService\src\NortiaAPI\obj\Debug\net462\
---out:c:\DEV\WebService\src\NortiaAPI\bin\Debug\net462\NortiaAPI.exe
+--temp-output:C:\DEV\WebService\src\NortiaAPI\obj\Debug\net462\
+--out:C:\DEV\WebService\src\NortiaAPI\bin\Debug\net462\NortiaAPI.exe
 --define:DEBUG
 --define:TRACE
 --define:NET462
@@ -144,8 +144,8 @@
 --reference:C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\Facades\System.Threading.Timer.dll
 --reference:C:\Users\mleurquin\.nuget\packages\System.Xml.ReaderWriter\4.3.0\ref\net46\System.Xml.ReaderWriter.dll
 --reference:C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\Facades\System.Xml.XDocument.dll
---reference:c:\DEV\WebService\Data\bin\Debug\Data.dll
---reference:c:\DEV\WebService\Entities\bin\Debug\Entities.dll
+--reference:C:\DEV\WebService\Data\bin\Debug\Data.dll
+--reference:C:\DEV\WebService\Entities\bin\Debug\Entities.dll
 --reference:C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\mscorlib.dll
 --reference:C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\System.dll
 --reference:C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\System.Core.dll
@@ -162,9 +162,9 @@
 --reference:C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\Facades\System.Runtime.InteropServices.dll
 --reference:C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\Facades\System.Reflection.dll
 --reference:C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\System.ComponentModel.Composition.dll
---resource:"c:\DEV\WebService\src\NortiaAPI\obj\Debug\net462\NortiaAPIdotnet-compile.deps.json",NortiaAPI.deps.json
-c:\DEV\WebService\src\NortiaAPI\Program.cs
-c:\DEV\WebService\src\NortiaAPI\Startup.cs
-c:\DEV\WebService\src\NortiaAPI\Controllers\V1\ClientController.cs
-c:\DEV\WebService\src\NortiaAPI\Controllers\V1\ParcoursClientKYCPPController.cs
-c:\DEV\WebService\src\NortiaAPI\Controllers\V1\ParcoursClientSouscriptionController.cs
+--resource:"C:\DEV\WebService\src\NortiaAPI\obj\Debug\net462\NortiaAPIdotnet-compile.deps.json",NortiaAPI.deps.json
+C:\DEV\WebService\src\NortiaAPI\Program.cs
+C:\DEV\WebService\src\NortiaAPI\Startup.cs
+C:\DEV\WebService\src\NortiaAPI\Controllers\V1\ClientController.cs
+C:\DEV\WebService\src\NortiaAPI\Controllers\V1\ParcoursClientKYCPPController.cs
+C:\DEV\WebService\src\NortiaAPI\Controllers\V1\ParcoursClientSouscriptionController.cs

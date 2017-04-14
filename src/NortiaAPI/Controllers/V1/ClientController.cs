@@ -28,6 +28,7 @@ namespace NortiaAPI.Controllers.V1
             try
             {
                 string soql = "SELECT id,DeveloperName FROM RecordType where IsActive =true and SobjectType='Account'";
+                //comment
                 IEnumerable<RecordType> listeRecordType = SalesforceService.GetObjectFromQuery<RecordType>(soql).Result;
 
                 soql = "select Id,name,firstName,lastName,RecordTypeId from account where type='Souscripteur'";

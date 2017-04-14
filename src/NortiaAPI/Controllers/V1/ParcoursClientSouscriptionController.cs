@@ -26,7 +26,8 @@ namespace NortiaAPI.Controllers.V1
         {
             try
             {
-               string soqlWhere = "recordtype.DeveloperName='Souscription'";
+
+               string soqlWhere = "recordtype.DeveloperName='Souscription'"; 
                 IEnumerable<Parcours_Client__c> listeParClient = SalesforceService.GetObject<Parcours_Client__c>(soqlWhere).Result;
                 IEnumerable<ParcoursClientSouscription> listeParClientSous = listeParClient.Select(pc => new ParcoursClientSouscription
                 {
