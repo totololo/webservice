@@ -42,7 +42,7 @@ namespace NortiaAPI.Controllers.V1
                         soql += " and recordtype.DeveloperName='Personne_Physique'";
                 }
 
-                IEnumerable<NortiaContrat__c> listeAccount = SalesforceService.GetObjectFromQuery<NortiaContrat__c>(soql).Result;
+                IEnumerable<Account> listeAccount = SalesforceService.GetObjectFromQuery<Account>(soql).Result;
                 IEnumerable<Client> listeClient = listeAccount.Select(acc => new Client
                 {
                     Id = acc.Id,
@@ -80,11 +80,11 @@ namespace NortiaAPI.Controllers.V1
                 IEnumerable<RecordType> listeRecordType = SalesforceService.GetObjectFromQuery<RecordType>(soql).Result;
 
                 soql = "select Id,name,firstName,lastName,RecordTypeId from account where type='Souscripteur' and id='" + id + "'";
-                IEnumerable<NortiaContrat__c> listeAccount = SalesforceService.GetObjectFromQuery<NortiaContrat__c>(soql).Result;
+                IEnumerable<Account> listeAccount = SalesforceService.GetObjectFromQuery<Account>(soql).Result;
 
                 if (listeAccount != null && listeAccount.Count() > 0)
                 {
-                    NortiaContrat__c acc = listeAccount.First();
+                    Account acc = listeAccount.First();
                     Client sous = new Client
                     {
                         Id = acc.Id,
@@ -131,7 +131,7 @@ namespace NortiaAPI.Controllers.V1
                 string soql = "select Id from recordtype where IsActive =true and name='" + recordtypeName + "' and SobjectType='Account'";
                 RecordType recordtype = SalesforceService.GetObjectFromQuery<RecordType>(soql).Result.First();
 
-                client.Id = SalesforceService.AddFromObject("Account", new NortiaContrat__c
+                client.Id = SalesforceService.AddFromObject("Account", new Account
                 {
                     FirstName = (client.Type == "PM") ? null : client.Prenom1,
                     LastName = (client.Type == "PM") ? null : client.Nom,
