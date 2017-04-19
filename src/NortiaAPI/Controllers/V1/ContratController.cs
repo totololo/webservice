@@ -11,7 +11,7 @@ using System.ComponentModel.DataAnnotations;
 namespace NortiaAPI.Controllers.V1
 {
     [Route("V1/Clients", Name = "ClientDefault")]
-    public class ClientController : Controller
+    public class ContratController : Controller
     {
         /// <summary>
         /// Get all clients.
@@ -23,32 +23,23 @@ namespace NortiaAPI.Controllers.V1
         [HttpGet]
         [ProducesResponseType(200)]
         [ProducesResponseType(500)]
-        public IActionResult GetClients(string type = null)
+        public IActionResult GetContrats(string type = null)
         {
             try
             {
-                string soql = "SELECT id,DeveloperName FROM RecordType where IsActive =true and SobjectType='Account'";
+                //string soql = "SELECT id,DeveloperName FROM RecordType d SobjectType='NortiaContrat__c'";
                 //comment
-                IEnumerable<RecordType> listeRecordType = SalesforceService.GetObjectFromQuery<RecordType>(soql).Result;
+                //IEnumerable<RecordType> listeRecordType = SalesforceService.GetObjectFromQuery<RecordType>(soql).Result;
 
-                soql = "select Id,name,firstName,lastName,RecordTypeId from account where type='Souscripteur'";
+                string soql = "select Id,name,RecordTypeId from NortiaContrat__c";
 
-                if (!string.IsNullOrWhiteSpace(type))
+                
+                IEnumerable<NortiaContrat__c> listContrat= SalesforceService.GetObjectFromQuery<NortiaContrat__c>(soql).Result;
+                IEnumerable<Contrat> listeClient = listContrat.Select(contrat => new Contrat
                 {
-                    if (type.ToUpper() == "PM")
-                        soql += " and recordtype.DeveloperName='Personne_Morale'";
-
-                    if (type.ToUpper() == "PP")
-                        soql += " and recordtype.DeveloperName='Personne_Physique'";
-                }
-
-                IEnumerable<NortiaContrat__c> listeAccount = SalesforceService.GetObjectFromQuery<NortiaContrat__c>(soql).Result;
-                IEnumerable<Client> listeClient = listeAccount.Select(acc => new Client
-                {
-                    Id = acc.Id,
-                    Nom = acc.LastName ?? acc.Name,
-                    Prenom1 = acc.FirstName,
-                    Type = (listeRecordType.First(x => x.Id == acc.RecordTypeId).DeveloperName) == "Personne_Morale" ? "PM" : "PP"
+                    Id = contrat.Id,
+                    numero_contrat = contrat.Name,
+                   
                 });
 
                 return Ok(listeClient);
@@ -136,7 +127,8 @@ namespace NortiaAPI.Controllers.V1
                     FirstName = (client.Type == "PM") ? null : client.Prenom1,
                     LastName = (client.Type == "PM") ? null : client.Nom,
                     Name = (client.Type == "PM") ? client.Nom : null,
-                    Type = "Souscripteur", IsPersonAccount = (client.Type == "PM") ? false : true,
+                    Type = "Souscripteur",
+                    IsPersonAccount = (client.Type == "PM") ? false : true,
                     RecordTypeId = recordtype.Id
                 }).Result;
 

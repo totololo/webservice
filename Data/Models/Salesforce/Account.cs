@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Data.Models.Salesforce
 {
-    public class Account
+    public class NortiaContrat__c
     {
         [Key]
         [Display(Name = "Account ID")]
