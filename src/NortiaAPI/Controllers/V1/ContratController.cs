@@ -10,14 +10,13 @@ using System.ComponentModel.DataAnnotations;
 
 namespace NortiaAPI.Controllers.V1
 {
-    [Route("V1/Clients", Name = "ClientDefault")]
+    [Route("V1/Contrat", Name = "ContratDefault")]
     public class ContratController : Controller
     {
         /// <summary>
-        /// Get all clients.
+        /// Get all contrat .
         /// </summary>
-        /// <param name="type">The client type: PP or PM</param>
-        /// <returns>The list of client with an HTTP 200, or error message with an HTTP 500</returns>
+        /// <returns>The list of contrat with an HTTP 200, or error message with an HTTP 500</returns>
         /// <response code="200">The list of client</response>
         /// <response code="500">Error message</response>
         [HttpGet]
@@ -34,15 +33,15 @@ namespace NortiaAPI.Controllers.V1
                 string soql = "select Id,name,RecordTypeId from NortiaContrat__c";
 
                 
-                IEnumerable<NortiaContrat__c> listContrat= SalesforceService.GetObjectFromQuery<NortiaContrat__c>(soql).Result;
-                IEnumerable<Contrat> listeClient = listContrat.Select(contrat => new Contrat
+                IEnumerable<NortiaContrat__c> listNortiaContrat= SalesforceService.GetObjectFromQuery<NortiaContrat__c>(soql).Result;
+                IEnumerable<Contrat> listContrat = listNortiaContrat.Select(contrat => new Contrat
                 {
                     Id = contrat.Id,
                     numero_contrat = contrat.Name,
                    
                 });
 
-                return Ok(listeClient);
+                return Ok(listContrat);
             }
             catch (Exception ex)
             {
