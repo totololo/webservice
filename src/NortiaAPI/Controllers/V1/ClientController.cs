@@ -85,7 +85,7 @@ namespace NortiaAPI.Controllers.V1
                 if (listeAccount != null && listeAccount.Count() > 0)
                 {
                     Account acc = listeAccount.First();
-                    Client sous = new Client
+                    Client cl = new Client
                     {
                         Id = acc.Id,
                         Nom = acc.LastName ?? acc.Name,
@@ -93,7 +93,7 @@ namespace NortiaAPI.Controllers.V1
                         Type = (listeRecordType.First(x => x.Id == acc.RecordTypeId).DeveloperName) == "Personne_Morale" ? "PM" : "PP"
                     };
 
-                    return Ok(sous);
+                    return Ok(cl);
                 }
                 else
                     return NotFound("Cet identifiant ne correspond à aucun client");

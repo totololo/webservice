@@ -80,6 +80,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\Salesforce\Account.cs" />
+    <Compile Include="Models\Salesforce\NortiaContract__c.cs" />
     <Compile Include="Models\Salesforce\Parcours_Client__c.cs" />
     <Compile Include="Models\Salesforce\RecordType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

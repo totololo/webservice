@@ -43,6 +43,14 @@ namespace Entities.V1
         public string TelephoneMobileClient { get; set; }
         public string AdresseEmailClient { get; set; }
 
+
+        public class RetourStatut
+        {
+            public string Statut { get; set; }
+            public List<string> ListeDocumentAFournir { get; set; }
+        }
+
+        /*
         public class Client_Etape1
         {
             public string CiviliteClient { get; set; }
@@ -78,5 +86,6 @@ namespace Entities.V1
             public string TelephoneMobileClient { get; set; }
             public string AdresseEmailClient { get; set; }
         }
+        */
     }
 }

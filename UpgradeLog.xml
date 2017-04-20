@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?>
+<UpgradeLog>
+<Properties>
+<Property Name="Solution" Value="C:\DEV\WebService\WebService.sln"></Property>
+<Property Name="Solution File" Value="C:\DEV\WebService"></Property>
+<Property Name="Date" Value="20/04/2017 11:24:34"></Property>
+</Properties>
+<Event ErrorLevel="3" Project="Data" Source="app.config" Description="No need to convert"></Event>
+<Event ErrorLevel="3" Project="Data" Source="Models" Description="No need to convert"></Event>
+<Event ErrorLevel="3" Project="Data" Source="Salesforce" Description="No need to convert"></Event>
+<Event ErrorLevel="3" Project="Data" Source="Account.cs" Description="No need to convert"></Event>
+<Event ErrorLevel="3" Project="Data" Source="Parcours_Client__c.cs" Description="No need to convert"></Event>
+<Event ErrorLevel="3" Project="Data" Source="RecordType.cs" Description="No need to convert"></Event>
+<Event ErrorLevel="3" Project="Data" Source="packages.config" Description="No need to convert"></Event>
+<Event ErrorLevel="3" Project="Data" Source="Properties" Description="No need to convert"></Event>
+<Event ErrorLevel="3" Project="Data" Source="AssemblyInfo.cs" Description="No need to convert"></Event>
+<Event ErrorLevel="3" Project="Data" Source="Service References" Description="No need to convert"></Event>
+<Event ErrorLevel="3" Project="Data" Source="Salesforce" Description="No need to convert"></Event>
+<Event ErrorLevel="3" Project="Data" Source="ConnectedService.json" Description="No need to convert"></Event>
+<Event ErrorLevel="3" Project="Data" Source="SalesforceService.cs" Description="No need to convert"></Event>
+
+</UpgradeLog>

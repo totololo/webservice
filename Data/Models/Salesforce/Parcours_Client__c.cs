@@ -37,7 +37,7 @@ namespace Data.Models.Salesforce
         public DateTimeOffset CreatedDate { get; set; }
 
         [Display(Name = "Created By ID")]
-        [Updateable(false)]
+        [Createable(false), Updateable(false)]
         public string CreatedById { get; set; }
 
         [Display(Name = "Last Modified Date")]
@@ -45,7 +45,7 @@ namespace Data.Models.Salesforce
         public DateTimeOffset LastModifiedDate { get; set; }
 
         [Display(Name = "Last Modified By ID")]
-        [Updateable(false)]
+        [Createable(false), Updateable(false)]
         public string LastModifiedById { get; set; }
 
         [Display(Name = "System Modstamp")]
@@ -309,6 +309,15 @@ namespace Data.Models.Salesforce
         [Createable(false), Updateable(false)]
         public double? Age__c { get; set; }
 
+        [Display(Name = "Durée du contrat")]
+        public string Duree_contrat__c { get; set; }
+
+        [Display(Name = "Durée en année")]
+        public double? Duree_annee__c { get; set; }
+
+        [Display(Name = "Montant du versement")]
+        public double? Montant_versement__c { get; set; }
+
         [Display(Name = "Statut")]
         public string Statut__c { get; set; }
 
@@ -338,9 +347,30 @@ namespace Data.Models.Salesforce
         [Display(Name = "Nationalité")]
         public string Nationalite__c { get; set; }
 
+        [Display(Name = "Frais d'entrée du versement")]
+        public double? Frais_entree_vers__c { get; set; }
+
+        [Display(Name = "Mode de paiement")]
+        public string Mode_paiement__c { get; set; }
+
+        [Display(Name = "Numéro de chèque")]
+        [StringLength(7)]
+        public string Num_cheque__c { get; set; }
+
         [Display(Name = "Appartement")]
         [StringLength(10)]
         public string Numero__c { get; set; }
+
+        [Display(Name = "Numéro de compte")]
+        [StringLength(12)]
+        public string Num_compte__c { get; set; }
+
+        [Display(Name = "Nom de la banque")]
+        [StringLength(255)]
+        public string Nom_banque__c { get; set; }
+
+        [Display(Name = "Titulaire du compte")]
+        public string Titulaire_compte__c { get; set; }
 
         [Display(Name = "Pays de résidence fiscale autre que US 1")]
         public string Pays_resid_fisc_non_US_1__c { get; set; }
@@ -353,6 +383,29 @@ namespace Data.Models.Salesforce
 
         [Display(Name = "Statut professionnel du salarié")]
         public string Statut_salarie__c { get; set; }
+
+        [Display(Name = "Lien entre titulaire et souscripteur")]
+        [StringLength(100)]
+        public string Lien_titulaire_souscripteur__c { get; set; }
+
+        [Display(Name = "Clause bénéficiaire")]
+        public string Clause_benef__c { get; set; }
+
+        [Display(Name = "Transfert/Réemploi d'épargne")]
+        public bool Origine_fond_transfert_epargne__c { get; set; }
+
+        [Display(Name = "Précision du type de produit d'origine")]
+        [StringLength(150)]
+        public string Origine_fond_type_produit__c { get; set; }
+
+        [Display(Name = "Montant")]
+        public double? Origine_fond_transfert_montant__c { get; set; }
+
+        [Display(Name = "Vente immobilière")]
+        public bool Origine_fond_vente_immo__c { get; set; }
+
+        [Display(Name = "Montant")]
+        public double? Origine_fond_immo_montant__c { get; set; }
 
         [Display(Name = "Date de début PPE")]
         public DateTimeOffset? PPE_date_debut__c { get; set; }
@@ -372,14 +425,68 @@ namespace Data.Models.Salesforce
         [StringLength(120)]
         public string Proche_PPE_prenom__c { get; set; }
 
+        [Display(Name = "Héritage/Succession")]
+        public bool Origine_fond_heritage__c { get; set; }
+
+        [Display(Name = "Précision de la filiation")]
+        [StringLength(150)]
+        public string Origine_fond_heritage_filiation__c { get; set; }
+
+        [Display(Name = "Précision de la date")]
+        public DateTimeOffset? Origine_fond_heritage_date__c { get; set; }
+
+        [Display(Name = "Montant")]
+        public double? Origine_fond_heritage_montant__c { get; set; }
+
+        [Display(Name = "Don")]
+        public bool Origine_fond_don__c { get; set; }
+
+        [Display(Name = "Montant")]
+        public double? Origine_fond_don_montant__c { get; set; }
+
+        [Display(Name = "Prestation (accident, décès, invalidité)")]
+        public bool Origine_fond_prestation__c { get; set; }
+
+        [Display(Name = "Précision sur la prestation")]
+        [StringLength(150)]
+        public string Origine_fond_prestation_precision__c { get; set; }
+
+        [Display(Name = "Montant")]
+        public double? Origine_fond_prestation_montant__c { get; set; }
+
+        [Display(Name = "Indemnité (divorce, licenciement, ...)")]
+        public bool Origine_fond_indemn__c { get; set; }
+
+        [Display(Name = "Précision sur l'indemnité")]
+        [StringLength(150)]
+        public string Origine_fond_indemn_precision__c { get; set; }
+
+        [Display(Name = "Montant")]
+        public double? Origine_fond_indemn_montant__c { get; set; }
+
         [Display(Name = "Date de début proche PPE")]
         public DateTimeOffset? Proche_PPE_date_debut__c { get; set; }
 
         [Display(Name = "Date de fin proche PPE")]
         public DateTimeOffset? Proche_PPE_date_fin__c { get; set; }
 
+        [Display(Name = "Revenus professionnels")]
+        public bool Origine_fond_revenus_pro__c { get; set; }
+
         [Display(Name = "Date de délivrance")]
         public DateTimeOffset? Date_delivrance__c { get; set; }
+
+        [Display(Name = "Montant")]
+        public double? Origine_fond_revenus_pro_montant__c { get; set; }
+
+        [Display(Name = "Cession d'actifs")]
+        public bool Origine_fond_cession_actifs__c { get; set; }
+
+        [Display(Name = "Montant")]
+        public double? Origine_fond_cession_actifs_montant__c { get; set; }
+
+        [Display(Name = "Gain au jeu")]
+        public bool Origine_fond_gain_jeu__c { get; set; }
 
         [Display(Name = "Département de naissance")]
         public string Dpt_naissance__c { get; set; }
@@ -419,8 +526,16 @@ namespace Data.Models.Salesforce
         [Display(Name = "Emprunt immobilier")]
         public bool Charge_emprunt__c { get; set; }
 
+        [Display(Name = "Nom de naissance du conjoint")]
+        [StringLength(80)]
+        public string Nom_naissance_conjoint__c { get; set; }
+
         [Display(Name = "Pensions")]
         public bool Nature_revenu_pension__c { get; set; }
+
+        [Display(Name = "Prénom du conjoint")]
+        [StringLength(40)]
+        public string Prenom_conjoint__c { get; set; }
 
         [Display(Name = "Revenus financiers")]
         public bool Nature_revenu_financier__c { get; set; }
@@ -430,6 +545,9 @@ namespace Data.Models.Salesforce
 
         [Display(Name = "Salaires")]
         public bool Nature_revenu_salaire__c { get; set; }
+
+        [Display(Name = "Montant")]
+        public double? Origine_fond_gain_jeu_montant__c { get; set; }
 
         [Display(Name = "Pourcentage lié aux salaires")]
         public double? Pourcent_salaires__c { get; set; }
@@ -446,6 +564,10 @@ namespace Data.Models.Salesforce
         [Display(Name = "Pourcentage lié aux autres revenus")]
         public double? Pourcent_autres_revenus__c { get; set; }
 
+        [Display(Name = "Téléphone domicile")]
+        [Phone]
+        public string Tel_domicile__c { get; set; }
+
         [Display(Name = "Pourcentage lié aux biens professionnels")]
         public double? Pourcent_biens__c { get; set; }
 
@@ -460,6 +582,55 @@ namespace Data.Models.Salesforce
 
         [Display(Name = "Pourcentage lié aux autres charges")]
         public double? Pourcent_autres_charges__c { get; set; }
+
+        [Display(Name = "Autre")]
+        public bool Origine_fond_autre__c { get; set; }
+
+        [Display(Name = "Précision de la nature")]
+        [StringLength(150)]
+        public string Origine_fond_autre_nature__c { get; set; }
+
+        [Display(Name = "Date de transaction de l'épargne")]
+        public DateTimeOffset? Origine_fond_autre_date__c { get; set; }
+
+        [Display(Name = "Etablissement d'origine")]
+        [StringLength(150)]
+        public string Origine_fond_autre_etab__c { get; set; }
+
+        [Display(Name = "Montant")]
+        public double? Origine_fond_autre_montant__c { get; set; }
+
+        [Display(Name = "Versements programmés")]
+        public string Vers_prog__c { get; set; }
+
+        [Display(Name = "Fréquence des prélèvements")]
+        public string Freq_prelev__c { get; set; }
+
+        [Display(Name = "Date du 1er prélèvement")]
+        public DateTimeOffset? Date_1er_prelev__c { get; set; }
+
+        [Display(Name = "Durée")]
+        public double? Duree_vers__c { get; set; }
+
+        [Display(Name = "Date 1er prélèvement avec modification")]
+        public DateTimeOffset? Date_1er_prelev_modif__c { get; set; }
+
+        [Display(Name = "Confirmation arrêt versements programmés")]
+        public bool Confirm_arret_vers_prog__c { get; set; }
+
+        [Display(Name = "RIB sélectionné")]
+        public string RIB__c { get; set; }
+
+        [Display(Name = "Pièce à joindre")]
+        public string Piece_joindre__c { get; set; }
+
+        [Display(Name = "Parcours lié")]
+        public string Parcours_lie__c { get; set; }
+
+        [Display(Name = "Origine de la création")]
+        [StringLength(1300)]
+        [Createable(false), Updateable(false)]
+        public string Origine_creation__c { get; set; }
 
     }
 }

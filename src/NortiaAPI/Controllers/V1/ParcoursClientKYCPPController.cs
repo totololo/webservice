@@ -179,7 +179,7 @@ namespace NortiaAPI.Controllers.V1
                 RecordType recordtype = SalesforceService.GetObject<RecordType>(soqlWhere).Result.First();
 
 
-                string id = SalesforceService.AddFromObject("Parcours_Client__c", new Parcours_Client__c { RecordTypeId = recordtype.Id, Compte_client__c = idClient }).Result;
+                string id = SalesforceService.AddFromObject("Parcours_Client__c", new Parcours_Client__c { RecordTypeId = recordtype.Id, Compte_client__c = idClient, Parcours_lie__c= IdParcoursClient }).Result;
 
                 return CreatedAtRoute("ParcoursClientKYCPPDefault", id);
             }
@@ -196,16 +196,20 @@ namespace NortiaAPI.Controllers.V1
         /// Client property not present or null ==> unchanged
         /// </remarks>
         /// <param name="id">The parcours client souscription id</param>
-        /// <param name="client">The parcours client connaissance client PP client properties</param>
+        /// <param name="parClKYC_PP">The parcours client connaissance client PP client properties</param>
         /// <returns>null with an HTTP 204, warning message with an HTTP 404, or error message with an HTTP 500</returns>
+        /// <response code="200">Updated with status return</response>
         /// <response code="204">Updated</response>
         /// <response code="404">Not found</response>
         /// <response code="500">Error</response>
+        /// <response code="502">Error Update server distant</response>
         [HttpPut("{id}")]
+        [ProducesResponseType(200)]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
         [ProducesResponseType(500)]
-        public IActionResult UpdateParcoursClientKYCPP(string id, [FromBody, Required] ParcoursClientKYC_PP client)
+        [ProducesResponseType(502)]
+        public IActionResult UpdateParcoursClientKYCPP(string id, [FromBody, Required] ParcoursClientKYC_PP parClKYC_PP)
         {
             try
             {
@@ -213,29 +217,44 @@ namespace NortiaAPI.Controllers.V1
                 Parcours_Client__c pc = SalesforceService.GetObjectFromId<Parcours_Client__c>(id, soqlWhere).Result;
                 if (pc != null)
                 {
-                    pc.Civilite__c = client.CiviliteClient == null ? pc.Civilite__c : client.CiviliteClient;
-                    pc.Nom_usage__c = client.NomUsageClient == null ? pc.Nom_usage__c : client.NomUsageClient;
-                    pc.Nom_naissance__c = client.NomNaissanceClient == null ? pc.Nom_naissance__c : client.NomNaissanceClient;
-                    pc.Prenom_1__c = client.Prenom1Client == null ? pc.Prenom_1__c : client.Prenom1Client;
-                    pc.Prenom_2__c = client.Prenom2Client == null ? pc.Prenom_2__c : client.Prenom2Client;
-                    pc.Prenom_3__c = client.Prenom3Client == null ? pc.Prenom_3__c : client.Prenom3Client;
-                    pc.Date_naissance__c = client.DateNaissanceClient == null ? pc.Date_naissance__c : client.DateNaissanceClient;
-                    pc.Dpt_naissance__c = client.DepartementNaissanceClient == null ? pc.Dpt_naissance__c : client.DepartementNaissanceClient;
-                    pc.Ville_naissance__c = client.VilleNaissanceClient == null ? pc.Ville_naissance__c : client.VilleNaissanceClient;
-                    pc.Nationalite__c = client.Nationalite1Client == null ? pc.Nationalite__c : client.Nationalite1Client;
-                    pc.Plusieurs_nationalites__c = client.Nationalite2Client == null ? pc.Plusieurs_nationalites__c : (!string.IsNullOrWhiteSpace(client.Nationalite2Client)) ? "Non" : "Oui";
-                    pc.Nationalite_2__c = client.Nationalite2Client == null ? pc.Nationalite_2__c : client.Nationalite2Client;
-                    pc.Nationalite_3__c = client.Nationalite3Client == null ? pc.Nationalite_3__c : client.Nationalite3Client;
-                    pc.Nationalite_4__c = client.Nationalite4Client == null ? pc.Nationalite_4__c : client.Nationalite4Client;
-                    pc.Situation_familiale__c = client.SituationFamilialeClient == null ? pc.Situation_familiale__c : client.SituationFamilialeClient;
-                    pc.Regime_mat__c = client.RegimeMatrimonialClient == null ? pc.Regime_mat__c : client.RegimeMatrimonialClient;
-                    pc.Autre_regime_mat__c = client.RegimeMatrimonialAutreClient == null ? pc.Autre_regime_mat__c : client.RegimeMatrimonialAutreClient;
-                    pc.Type_piece__c = client.TypePIClient == null ? pc.Type_piece__c : client.TypePIClient;
-                    pc.Num_piece__c = client.NumeroPIClient == null ? pc.Num_piece__c : client.NumeroPIClient;
-                    pc.Date_expiration__c = client.DateExpirationPIClient == null ? pc.Date_expiration__c : client.DateExpirationPIClient;
+                    pc.Civilite__c = parClKYC_PP.CiviliteClient == null ? pc.Civilite__c : parClKYC_PP.CiviliteClient;
+                    pc.Nom_usage__c = parClKYC_PP.NomUsageClient == null ? pc.Nom_usage__c : parClKYC_PP.NomUsageClient;
+                    pc.Nom_naissance__c = parClKYC_PP.NomNaissanceClient == null ? pc.Nom_naissance__c : parClKYC_PP.NomNaissanceClient;
+                    pc.Prenom_1__c = parClKYC_PP.Prenom1Client == null ? pc.Prenom_1__c : parClKYC_PP.Prenom1Client;
+                    pc.Prenom_2__c = parClKYC_PP.Prenom2Client == null ? pc.Prenom_2__c : parClKYC_PP.Prenom2Client;
+                    pc.Prenom_3__c = parClKYC_PP.Prenom3Client == null ? pc.Prenom_3__c : parClKYC_PP.Prenom3Client;
+                    pc.Date_naissance__c = parClKYC_PP.DateNaissanceClient == null ? pc.Date_naissance__c : parClKYC_PP.DateNaissanceClient;
+                    pc.Dpt_naissance__c = parClKYC_PP.DepartementNaissanceClient == null ? pc.Dpt_naissance__c : parClKYC_PP.DepartementNaissanceClient;
+                    pc.Ville_naissance__c = parClKYC_PP.VilleNaissanceClient == null ? pc.Ville_naissance__c : parClKYC_PP.VilleNaissanceClient;
+                    pc.Nationalite__c = parClKYC_PP.Nationalite1Client == null ? pc.Nationalite__c : parClKYC_PP.Nationalite1Client;
+                    pc.Plusieurs_nationalites__c = parClKYC_PP.Nationalite2Client == null ? pc.Plusieurs_nationalites__c : (!string.IsNullOrWhiteSpace(parClKYC_PP.Nationalite2Client)) ? "Non" : "Oui";
+                    pc.Nationalite_2__c = parClKYC_PP.Nationalite2Client == null ? pc.Nationalite_2__c : parClKYC_PP.Nationalite2Client;
+                    pc.Nationalite_3__c = parClKYC_PP.Nationalite3Client == null ? pc.Nationalite_3__c : parClKYC_PP.Nationalite3Client;
+                    pc.Nationalite_4__c = parClKYC_PP.Nationalite4Client == null ? pc.Nationalite_4__c : parClKYC_PP.Nationalite4Client;
+                    pc.Situation_familiale__c = parClKYC_PP.SituationFamilialeClient == null ? pc.Situation_familiale__c : parClKYC_PP.SituationFamilialeClient;
+                    pc.Regime_mat__c = parClKYC_PP.RegimeMatrimonialClient == null ? pc.Regime_mat__c : parClKYC_PP.RegimeMatrimonialClient;
+                    pc.Autre_regime_mat__c = parClKYC_PP.RegimeMatrimonialAutreClient == null ? pc.Autre_regime_mat__c : parClKYC_PP.RegimeMatrimonialAutreClient;
+                    pc.Type_piece__c = parClKYC_PP.TypePIClient == null ? pc.Type_piece__c : parClKYC_PP.TypePIClient;
+                    pc.Num_piece__c = parClKYC_PP.NumeroPIClient == null ? pc.Num_piece__c : parClKYC_PP.NumeroPIClient;
+                    pc.Date_expiration__c = parClKYC_PP.DateExpirationPIClient == null ? pc.Date_expiration__c : parClKYC_PP.DateExpirationPIClient;
                     
-                    var retour = SalesforceService.UpdateFromObject("Parcours_Client__c", id, pc);
-                    return NoContent();
+                    var retour = SalesforceService.UpdateFromObject("Parcours_Client__c", id, pc).Result;
+
+                    if (retour)
+                    {
+                        if (!string.IsNullOrWhiteSpace(pc.Parcours_lie__c))
+                            id = pc.Parcours_lie__c;
+
+                        pc = SalesforceService.GetObjectFromId<Parcours_Client__c>(id, soqlWhere).Result;
+                        if (pc != null)
+                        {
+                            return Ok(new ParcoursClientKYC_PP.RetourStatut { Statut= pc.Statut__c, ListeDocumentAFournir=pc.Piece_joindre__c.Split(';').ToList() });
+                        }
+                        else
+                            return NoContent();
+                    }
+                    else
+                        return StatusCode(502, "Le serveur intermédiaire a renvoyé une réponse invalide lors de la mise à jour de l'objet: 'Parcours_Client__c'");
                 }
                 else
                     return NotFound("Cet identifiant ne correspond à aucun parcours client connaissance client PP");
@@ -246,6 +265,8 @@ namespace NortiaAPI.Controllers.V1
             }
         }
 
+
+        /*
         /// <summary>
         /// Update one parcours client souscription (client - Etape1).
         /// </summary>
@@ -299,8 +320,9 @@ namespace NortiaAPI.Controllers.V1
                 return StatusCode(500, ex.Message);
             }
         }
+        */
 
-
+        /*
         /// <summary>
         /// Update one parcours client souscription (client - Etape2).
         /// </summary>
@@ -340,7 +362,7 @@ namespace NortiaAPI.Controllers.V1
                 return StatusCode(500, ex.Message);
             }
         }
-
+        */
 
         /// <summary>
         /// Delete one parcours client connaissance client PP by id.

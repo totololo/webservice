@@ -162,5 +162,6 @@
 "C:\DEV\WebService\src\NortiaAPI\Program.cs"
 "C:\DEV\WebService\src\NortiaAPI\Startup.cs"
 "C:\DEV\WebService\src\NortiaAPI\Controllers\V1\ClientController.cs"
+"C:\DEV\WebService\src\NortiaAPI\Controllers\V1\ContratController.cs"
 "C:\DEV\WebService\src\NortiaAPI\Controllers\V1\ParcoursClientKYCPPController.cs"
 "C:\DEV\WebService\src\NortiaAPI\Controllers\V1\ParcoursClientSouscriptionController.cs"

@@ -22,23 +22,15 @@ namespace NortiaAPI.Controllers.V1
         [HttpGet]
         [ProducesResponseType(200)]
         [ProducesResponseType(500)]
-        public IActionResult GetContrats(string type = null)
+        public IActionResult GetContrats()
         {
             try
             {
-                //string soql = "SELECT id,DeveloperName FROM RecordType d SobjectType='NortiaContrat__c'";
-                //comment
-                //IEnumerable<RecordType> listeRecordType = SalesforceService.GetObjectFromQuery<RecordType>(soql).Result;
-
-                string soql = "select Id,name,RecordTypeId from NortiaContrat__c";
-
-                
-                IEnumerable<NortiaContrat__c> listNortiaContrat= SalesforceService.GetObjectFromQuery<NortiaContrat__c>(soql).Result;
-                IEnumerable<Contrat> listContrat = listNortiaContrat.Select(contrat => new Contrat
+                IEnumerable<NortiaContract__c> listNortiaContrat = SalesforceService.GetObject<NortiaContract__c>().Result;
+                IEnumerable<Contrat> listContrat = listNortiaContrat.Select(ct => new Contrat
                 {
-                    Id = contrat.Id,
-                    numero_contrat = contrat.Name,
-                   
+                    Id = ct.Id,
+                    Numero = ct.Name,
                 });
 
                 return Ok(listContrat);
@@ -62,31 +54,23 @@ namespace NortiaAPI.Controllers.V1
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
         [ProducesResponseType(500)]
-        public IActionResult FindClientById(string id)
+        public IActionResult FindContratById(string id)
         {
             try
             {
-                string soql = "SELECT id,DeveloperName FROM RecordType where IsActive =true and SobjectType='Account'";
-                IEnumerable<RecordType> listeRecordType = SalesforceService.GetObjectFromQuery<RecordType>(soql).Result;
-
-                soql = "select Id,name,firstName,lastName,RecordTypeId from account where type='Souscripteur' and id='" + id + "'";
-                IEnumerable<NortiaContrat__c> listeAccount = SalesforceService.GetObjectFromQuery<NortiaContrat__c>(soql).Result;
-
-                if (listeAccount != null && listeAccount.Count() > 0)
+                NortiaContract__c nCt = SalesforceService.GetObjectFromId<NortiaContract__c>(id).Result;
+                if (nCt != null)
                 {
-                    NortiaContrat__c acc = listeAccount.First();
-                    Client sous = new Client
+                    Contrat ct = new Contrat
                     {
-                        Id = acc.Id,
-                        Nom = acc.LastName ?? acc.Name,
-                        Prenom1 = acc.FirstName,
-                        Type = (listeRecordType.First(x => x.Id == acc.RecordTypeId).DeveloperName) == "Personne_Morale" ? "PM" : "PP"
+                        Id = nCt.Id,
+                        Numero = nCt.Name
                     };
 
-                    return Ok(sous);
+                    return Ok(ct);
                 }
                 else
-                    return NotFound("Cet identifiant ne correspond à aucun client");
+                    return NotFound("Cet identifiant ne correspond à aucun contrat");
             }
             catch (Exception ex)
             {
@@ -100,38 +84,23 @@ namespace NortiaAPI.Controllers.V1
         /// <remarks>
         /// Don't specify the id
         /// </remarks>
-        /// <param name="client">The client properties</param>
+        /// <param name="contrat">The client properties</param>
         /// <returns>The client id with an HTTP 201, or error message with an HTTP 500</returns>
         /// <response code="201">The client id (created)</response>
         /// <response code="500">Error message</response>
         [HttpPost]
         [ProducesResponseType(201)]
         [ProducesResponseType(500)]
-        public IActionResult AddClient([FromBody, Required] Client client)
+        public IActionResult AddContrat([FromBody, Required] Contrat contrat)
         {
             try
             {
-                string recordtypeName = "";
-                client.Type = client.Type.ToUpper();
-                if (client.Type == "PM")
-                    recordtypeName = "Personne Morale";
-                else
-                    recordtypeName = "Personne Physique";
-
-                string soql = "select Id from recordtype where IsActive =true and name='" + recordtypeName + "' and SobjectType='Account'";
-                RecordType recordtype = SalesforceService.GetObjectFromQuery<RecordType>(soql).Result.First();
-
-                client.Id = SalesforceService.AddFromObject("Account", new NortiaContrat__c
+                contrat.Id = SalesforceService.AddFromObject("NortiaContract__c", new NortiaContract__c
                 {
-                    FirstName = (client.Type == "PM") ? null : client.Prenom1,
-                    LastName = (client.Type == "PM") ? null : client.Nom,
-                    Name = (client.Type == "PM") ? client.Nom : null,
-                    Type = "Souscripteur",
-                    IsPersonAccount = (client.Type == "PM") ? false : true,
-                    RecordTypeId = recordtype.Id
+                    Name = contrat.Numero
                 }).Result;
 
-                return CreatedAtRoute("ClientDefault", client.Id);
+                return CreatedAtRoute("ContratDefault", contrat.Id);
             }
             catch (Exception ex)
             {
@@ -153,7 +122,7 @@ namespace NortiaAPI.Controllers.V1
         {
             try
             {
-                var retour = SalesforceService.DeleteFromID("Account", id);
+                var retour = SalesforceService.DeleteFromID("NortiaContract__c", id);
                 return NoContent();
             }
             catch (Exception ex)
