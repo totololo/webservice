@@ -120,14 +120,14 @@ namespace Data.Salesforce
                 return null;
         }
 
-        public static async Task<string> AddFromObject(string objectName, object record)
+        public static async Task<string> AddFromObject<T>(T record) where T : class
         {
             try
             {
                 if (Client == null)
                     Client = await GetUserNamePasswordForceClientAsync();
 
-                SuccessResponse retour = await Client.CreateAsync(objectName, record);
+                SuccessResponse retour = await Client.CreateAsync(typeof(T).Name, record);
 
                 if (retour.Success)
                     return retour.Id;
@@ -140,14 +140,14 @@ namespace Data.Salesforce
             }
         }
 
-        public static async Task<bool> UpdateFromObject(string objectName, string id, object record)
+        public static async Task<bool> UpdateFromObject<T>(string id, T record) where T : class
         {
             try
             {
                 if (Client == null)
                     Client = await GetUserNamePasswordForceClientAsync();
 
-                SuccessResponse retour = await Client.UpdateAsync(objectName, id, record);
+                SuccessResponse retour = await Client.UpdateAsync(typeof(T).Name, id, record);
 
                 if (retour.Success)
                     return true;
@@ -160,14 +160,14 @@ namespace Data.Salesforce
             }
         }
 
-        public static async Task<bool> DeleteFromID(string objectName, string id)
+        public static async Task<bool> DeleteFromID<T>(string id) where T : class
         {
             try
             {
                 if (Client == null)
                     Client = await GetUserNamePasswordForceClientAsync();
 
-                bool retour = await Client.DeleteAsync(objectName, id);
+                bool retour = await Client.DeleteAsync(typeof(T).Name, id);
 
                 return retour;
             }

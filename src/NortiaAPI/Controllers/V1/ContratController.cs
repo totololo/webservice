@@ -95,7 +95,7 @@ namespace NortiaAPI.Controllers.V1
         {
             try
             {
-                contrat.Id = SalesforceService.AddFromObject("NortiaContract__c", new NortiaContract__c
+                contrat.Id = SalesforceService.AddFromObject(new NortiaContract__c
                 {
                     Name = contrat.Numero
                 }).Result;
@@ -122,7 +122,7 @@ namespace NortiaAPI.Controllers.V1
         {
             try
             {
-                var retour = SalesforceService.DeleteFromID("NortiaContract__c", id);
+                var retour = SalesforceService.DeleteFromID<NortiaContract__c>(id);
                 return NoContent();
             }
             catch (Exception ex)

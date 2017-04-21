@@ -18,4 +18,3 @@ c:\DEV\WebService\Data\bin\Debug\System.Net.Http.Extensions.xml
 c:\DEV\WebService\Data\bin\Debug\System.Net.Http.Primitives.xml
 c:\DEV\WebService\Data\obj\Debug\Data.dll
 c:\DEV\WebService\Data\obj\Debug\Data.pdb
-c:\DEV\WebService\Data\obj\Debug\Data.csprojResolveAssemblyReference.cache

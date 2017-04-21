@@ -44,6 +44,45 @@
             <response code="204">Null (Deleted)</response>
             <response code="500">Error message</response>
         </member>
+        <member name="M:NortiaAPI.Controllers.V1.ContratController.GetContrats">
+            <summary>
+            Get all contrat .
+            </summary>
+            <returns>The list of contrat with an HTTP 200, or error message with an HTTP 500</returns>
+            <response code="200">The list of client</response>
+            <response code="500">Error message</response>
+        </member>
+        <member name="M:NortiaAPI.Controllers.V1.ContratController.FindContratById(System.String)">
+            <summary>
+            Find one client by id.
+            </summary>
+            <param name="id">The client id</param>
+            <returns>The client with an HTTP 200, null with an HTTP 404, or error message with an HTTP 500</returns>
+            <response code="200">The client</response>
+            <response code="404">Null (not found)</response>
+            <response code="500">Error message</response>
+        </member>
+        <member name="M:NortiaAPI.Controllers.V1.ContratController.AddContrat(Entities.V1.Contrat)">
+            <summary>
+            Create a client.
+            </summary>
+            <remarks>
+            Don't specify the id
+            </remarks>
+            <param name="contrat">The client properties</param>
+            <returns>The client id with an HTTP 201, or error message with an HTTP 500</returns>
+            <response code="201">The client id (created)</response>
+            <response code="500">Error message</response>
+        </member>
+        <member name="M:NortiaAPI.Controllers.V1.ContratController.DeleteClientrById(System.String)">
+            <summary>
+            Delete one client by id.
+            </summary>
+            <param name="id">The client id</param>
+            <returns>null with an HTTP 204, or error message with an HTTP 500</returns>
+            <response code="204">Null (Deleted)</response>
+            <response code="500">Error message</response>
+        </member>
         <member name="M:NortiaAPI.Controllers.V1.ParcoursClientKYCPPController.GetParcoursClientsKYCPP">
             <summary>
             Get all parcours clients connaissance client PP 
@@ -89,39 +128,13 @@
             Client property not present or null ==> unchanged
             </remarks>
             <param name="id">The parcours client souscription id</param>
-            <param name="client">The parcours client connaissance client PP client properties</param>
+            <param name="parClKYC_PP">The parcours client connaissance client PP client properties</param>
             <returns>null with an HTTP 204, warning message with an HTTP 404, or error message with an HTTP 500</returns>
+            <response code="200">Updated with status return</response>
             <response code="204">Updated</response>
             <response code="404">Not found</response>
             <response code="500">Error</response>
-        </member>
-        <member name="M:NortiaAPI.Controllers.V1.ParcoursClientKYCPPController.UpdateParcoursClientKYCPP_Client_Etape1(System.String,Entities.V1.ParcoursClientKYC_PP.Client_Etape1)">
-            <summary>
-            Update one parcours client souscription (client - Etape1).
-            </summary>
-            <remarks>
-            Client property not present or null ==> unchanged
-            </remarks>        
-            <param name="id">The parcours client souscription id</param>
-            <param name="clientE1">The parcours client connaissance client PP client step 1 properties</param>
-            <returns>null with an HTTP 204, warning message with an HTTP 404, or error message with an HTTP 500</returns>
-            <response code="204">Updated</response>
-            <response code="404">Not found</response>
-            <response code="500">Error</response>
-        </member>
-        <member name="M:NortiaAPI.Controllers.V1.ParcoursClientKYCPPController.UpdateParcoursClientKYCPP_Client_Etape2(System.String,Entities.V1.ParcoursClientKYC_PP.Client_Etape2)">
-            <summary>
-            Update one parcours client souscription (client - Etape2).
-            </summary>
-            <remarks>
-            Client property not present or null ==> unchanged
-            </remarks>
-            <param name="id">The parcours client connaissance client PP id</param>
-            <param name="clientE2">The parcours client connaissance client PP client step 2 properties</param>
-            <returns>null with an HTTP 204, warning message with an HTTP 404, or error message with an HTTP 500</returns>
-            <response code="204">Updated</response>
-            <response code="404">Not found</response>
-            <response code="500">Error</response>
+            <response code="502">Error Update server distant</response>
         </member>
         <member name="M:NortiaAPI.Controllers.V1.ParcoursClientKYCPPController.DeleteParcoursClientKYCPPById(System.String)">
             <summary>

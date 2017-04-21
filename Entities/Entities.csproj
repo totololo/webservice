@@ -46,6 +46,12 @@
     <Compile Include="V1\ParcoursClientSouscription.cs" />
     <Compile Include="V1\Client.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Data\Data.csproj">
+      <Project>{7A31447C-1F72-4D9C-90BD-E335A1C42F80}</Project>
+      <Name>Data</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

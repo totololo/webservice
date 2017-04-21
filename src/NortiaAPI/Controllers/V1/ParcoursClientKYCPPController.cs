@@ -28,27 +28,7 @@ namespace NortiaAPI.Controllers.V1
             {
                 string soqlWhere = "recordtype.DeveloperName='Connaissance_client_personne_physique'";
                 IEnumerable<Parcours_Client__c> listeParClient = SalesforceService.GetObject<Parcours_Client__c>(soqlWhere).Result;
-                IEnumerable<ParcoursClientKYC_PP> listeParClientKYCPP = listeParClient.Select(pc => new ParcoursClientKYC_PP
-                {
-                    Id = pc.Id,
-                    Id_Client = pc.Compte_client__c,
-                    CiviliteClient = pc.Civilite__c,
-                    NomUsageClient = pc.Nom_usage__c,
-                    NomNaissanceClient = pc.Nom_naissance__c,
-                    Prenom1Client = pc.Prenom_1__c,
-                    Prenom2Client = pc.Prenom_2__c,
-                    Prenom3Client = pc.Prenom_3__c,
-                    DateNaissanceClient = (pc.Date_naissance__c.HasValue ? (DateTime?)pc.Date_naissance__c.Value.Date:null),
-                    DepartementNaissanceClient = pc.Dpt_naissance__c,
-                    VilleNaissanceClient = pc.Ville_naissance__c,
-                    Nationalite1Client = pc.Nationalite__c,
-                    Nationalite2Client = pc.Nationalite_2__c,
-                    Nationalite3Client = pc.Nationalite_3__c,
-                    Nationalite4Client = pc.Nationalite_4__c,
-                    SituationFamilialeClient = pc.Situation_familiale__c,
-                    RegimeMatrimonialClient = pc.Regime_mat__c,
-                    RegimeMatrimonialAutreClient = pc.Autre_regime_mat__c
-                });
+                IEnumerable<ParcoursClientKYC_PP> listeParClientKYCPP = listeParClient.Select(pc => new ParcoursClientKYC_PP(pc));
 
                 return Ok(listeParClientKYCPP);
             }
@@ -75,27 +55,7 @@ namespace NortiaAPI.Controllers.V1
             {
                 string soqlWhere = "recordtype.DeveloperName='Connaissance_client_personne_physique' and Compte_client__c='" + id + "'";
                 IEnumerable<Parcours_Client__c> listeParClient = SalesforceService.GetObject<Parcours_Client__c>(soqlWhere).Result;
-                IEnumerable<ParcoursClientKYC_PP> listeParClientCCPP = listeParClient.Select(pc => new ParcoursClientKYC_PP
-                {
-                    Id = pc.Id,
-                    Id_Client = pc.Compte_client__c,
-                    CiviliteClient = pc.Civilite__c,
-                    NomUsageClient = pc.Nom_usage__c,
-                    NomNaissanceClient = pc.Nom_naissance__c,
-                    Prenom1Client = pc.Prenom_1__c,
-                    Prenom2Client = pc.Prenom_2__c,
-                    Prenom3Client = pc.Prenom_3__c,
-                    DateNaissanceClient = (pc.Date_naissance__c.HasValue ? (DateTime?)pc.Date_naissance__c.Value.Date : null),
-                    DepartementNaissanceClient = pc.Dpt_naissance__c,
-                    VilleNaissanceClient = pc.Ville_naissance__c,
-                    Nationalite1Client = pc.Nationalite__c,
-                    Nationalite2Client = pc.Nationalite_2__c,
-                    Nationalite3Client = pc.Nationalite_3__c,
-                    Nationalite4Client = pc.Nationalite_4__c,
-                    SituationFamilialeClient = pc.Situation_familiale__c,
-                    RegimeMatrimonialClient = pc.Regime_mat__c,
-                    RegimeMatrimonialAutreClient = pc.Autre_regime_mat__c
-                });
+                IEnumerable<ParcoursClientKYC_PP> listeParClientCCPP = listeParClient.Select(pc => new ParcoursClientKYC_PP(pc));
 
                 return Ok(listeParClientCCPP);
             }
@@ -114,7 +74,7 @@ namespace NortiaAPI.Controllers.V1
         /// <response code="200">Ok</response>
         /// <response code="404">Not found</response>
         /// <response code="500">Error</response>
-        [HttpGet("{id}")]
+        [HttpGet("{id}",Name = "FindParcoursClientKYCPPById")]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
         [ProducesResponseType(500)]
@@ -126,28 +86,8 @@ namespace NortiaAPI.Controllers.V1
                 Parcours_Client__c pc = SalesforceService.GetObjectFromId<Parcours_Client__c>(id, soqlWhere).Result;
                 if(pc!=null)
                 {
-                    ParcoursClientKYC_PP pcs = new ParcoursClientKYC_PP
-                    {
-                        Id = pc.Id,
-                        Id_Client = pc.Compte_client__c,
-                        CiviliteClient = pc.Civilite__c,
-                        NomUsageClient = pc.Nom_usage__c,
-                        NomNaissanceClient = pc.Nom_naissance__c,
-                        Prenom1Client = pc.Prenom_1__c,
-                        Prenom2Client = pc.Prenom_2__c,
-                        Prenom3Client = pc.Prenom_3__c,
-                        DateNaissanceClient = (pc.Date_naissance__c.HasValue ? (DateTime?)pc.Date_naissance__c.Value.Date : null),
-                        DepartementNaissanceClient = pc.Dpt_naissance__c,
-                        VilleNaissanceClient = pc.Ville_naissance__c,
-                        Nationalite1Client = pc.Nationalite__c,
-                        Nationalite2Client = pc.Nationalite_2__c,
-                        Nationalite3Client = pc.Nationalite_3__c,
-                        Nationalite4Client = pc.Nationalite_4__c,
-                        SituationFamilialeClient = pc.Situation_familiale__c,
-                        RegimeMatrimonialClient = pc.Regime_mat__c,
-                        RegimeMatrimonialAutreClient = pc.Autre_regime_mat__c
-                    };
-
+                    ParcoursClientKYC_PP pcs = new ParcoursClientKYC_PP(pc);
+                    
                     return Ok(pcs);
                 }
                 else
@@ -178,10 +118,22 @@ namespace NortiaAPI.Controllers.V1
                 string soqlWhere = "IsActive=true and DeveloperName='Connaissance_client_personne_physique' and SobjectType='Parcours_Client__c'";
                 RecordType recordtype = SalesforceService.GetObject<RecordType>(soqlWhere).Result.First();
 
+                Parcours_Client__c pcTemp = new Parcours_Client__c { RecordTypeId = recordtype.Id, Compte_client__c = idClient, Parcours_lie__c = IdParcoursClient };
+                string id = SalesforceService.AddFromObject(new Parcours_Client__c { RecordTypeId = recordtype.Id, Compte_client__c = idClient, Parcours_lie__c= IdParcoursClient }).Result;
 
-                string id = SalesforceService.AddFromObject("Parcours_Client__c", new Parcours_Client__c { RecordTypeId = recordtype.Id, Compte_client__c = idClient, Parcours_lie__c= IdParcoursClient }).Result;
+                soqlWhere = "recordtype.DeveloperName='Connaissance_client_personne_physique'";
+                Parcours_Client__c pc = SalesforceService.GetObjectFromId<Parcours_Client__c>(id, soqlWhere).Result;
+                if (pc != null)
+                {
+                    ParcoursClientKYC_PP pcs = new ParcoursClientKYC_PP(pc);
 
-                return CreatedAtRoute("ParcoursClientKYCPPDefault", id);
+                    return CreatedAtRoute("FindParcoursClientKYCPPById", new { id = id }, pcs);
+                }
+                else
+                {
+                    pcTemp.Id = id;
+                    return CreatedAtRoute("FindParcoursClientKYCPPById", new { id = id }, pcTemp);
+                }
             }
             catch (Exception ex)
             {
@@ -238,7 +190,7 @@ namespace NortiaAPI.Controllers.V1
                     pc.Num_piece__c = parClKYC_PP.NumeroPIClient == null ? pc.Num_piece__c : parClKYC_PP.NumeroPIClient;
                     pc.Date_expiration__c = parClKYC_PP.DateExpirationPIClient == null ? pc.Date_expiration__c : parClKYC_PP.DateExpirationPIClient;
                     
-                    var retour = SalesforceService.UpdateFromObject("Parcours_Client__c", id, pc).Result;
+                    var retour = SalesforceService.UpdateFromObject(id, pc).Result;
 
                     if (retour)
                     {
@@ -247,8 +199,8 @@ namespace NortiaAPI.Controllers.V1
 
                         pc = SalesforceService.GetObjectFromId<Parcours_Client__c>(id, soqlWhere).Result;
                         if (pc != null)
-                        {
-                            return Ok(new ParcoursClientKYC_PP.RetourStatut { Statut= pc.Statut__c, ListeDocumentAFournir=pc.Piece_joindre__c.Split(';').ToList() });
+                        {    
+                            return Ok(new ParcoursClientKYC_PP.RetourStatut { Statut= pc.Statut__c, ListeDocumentAFournir= pc.Piece_joindre__c == null ? new List<string>() : pc.Piece_joindre__c.Split(';').ToList() });
                         }
                         else
                             return NoContent();
@@ -378,7 +330,7 @@ namespace NortiaAPI.Controllers.V1
         {
             try
             {
-                var retour = SalesforceService.DeleteFromID("Parcours_Client__c", id);
+                var retour = SalesforceService.DeleteFromID<Parcours_Client__c>(id);
                 return NoContent();
             }
             catch (Exception ex)

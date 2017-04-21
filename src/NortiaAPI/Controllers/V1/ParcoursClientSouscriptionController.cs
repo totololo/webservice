@@ -135,7 +135,7 @@ namespace NortiaAPI.Controllers.V1
                 string soql = "select Id from recordtype where IsActive =true and name='Souscription' and SobjectType='Parcours_Client__c'";
                 RecordType recordtype = SalesforceService.GetObjectFromQuery<RecordType>(soql).Result.First();
 
-                string id = SalesforceService.AddFromObject("Parcours_Client__c", new Parcours_Client__c { RecordTypeId = recordtype.Id, Compte_client__c = idClient }).Result;
+                string id = SalesforceService.AddFromObject(new Parcours_Client__c { RecordTypeId = recordtype.Id, Compte_client__c = idClient }).Result;
 
                 return CreatedAtRoute("ParcoursClientSouscriptionDefault", id);
             }
@@ -160,7 +160,7 @@ namespace NortiaAPI.Controllers.V1
         {
             try
             {
-                var retour = SalesforceService.DeleteFromID("Parcours_Client__c", id);
+                var retour = SalesforceService.DeleteFromID<Parcours_Client__c>(id);
                 return NoContent();
             }
             catch (Exception ex)

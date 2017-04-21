@@ -131,7 +131,7 @@ namespace NortiaAPI.Controllers.V1
                 string soql = "select Id from recordtype where IsActive =true and name='" + recordtypeName + "' and SobjectType='Account'";
                 RecordType recordtype = SalesforceService.GetObjectFromQuery<RecordType>(soql).Result.First();
 
-                client.Id = SalesforceService.AddFromObject("Account", new Account
+                client.Id = SalesforceService.AddFromObject(new Account
                 {
                     FirstName = (client.Type == "PM") ? null : client.Prenom1,
                     LastName = (client.Type == "PM") ? null : client.Nom,
@@ -162,7 +162,7 @@ namespace NortiaAPI.Controllers.V1
         {
             try
             {
-                var retour = SalesforceService.DeleteFromID("Account", id);
+                var retour = SalesforceService.DeleteFromID<Account>(id);
                 return NoContent();
             }
             catch (Exception ex)

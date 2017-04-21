@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Data.Models.Salesforce;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -42,6 +43,37 @@ namespace Entities.V1
         public string TelephoneDomicileClient { get; set; }
         public string TelephoneMobileClient { get; set; }
         public string AdresseEmailClient { get; set; }
+
+
+        //technique
+        public string Statut { get; set; }
+        public List<string> ListeDocumentAFournir { get; set; }
+
+        public ParcoursClientKYC_PP() { }
+
+        public ParcoursClientKYC_PP(Parcours_Client__c pc)
+        {
+            Id = pc.Id;
+            Id_Client = pc.Compte_client__c;
+            CiviliteClient = pc.Civilite__c;
+            NomUsageClient = pc.Nom_usage__c;
+            NomNaissanceClient = pc.Nom_naissance__c;
+            Prenom1Client = pc.Prenom_1__c;
+            Prenom2Client = pc.Prenom_2__c;
+            Prenom3Client = pc.Prenom_3__c;
+            DateNaissanceClient = (pc.Date_naissance__c.HasValue ? (DateTime?)pc.Date_naissance__c.Value.Date : null);
+            DepartementNaissanceClient = pc.Dpt_naissance__c;
+            VilleNaissanceClient = pc.Ville_naissance__c;
+            Nationalite1Client = pc.Nationalite__c;
+            Nationalite2Client = pc.Nationalite_2__c;
+            Nationalite3Client = pc.Nationalite_3__c;
+            Nationalite4Client = pc.Nationalite_4__c;
+            SituationFamilialeClient = pc.Situation_familiale__c;
+            RegimeMatrimonialClient = pc.Regime_mat__c;
+            RegimeMatrimonialAutreClient = pc.Autre_regime_mat__c;
+            Statut = pc.Statut__c;
+            ListeDocumentAFournir = pc.Piece_joindre__c==null?new List<string>():pc.Piece_joindre__c.Split(';').ToList();
+        }
 
 
         public class RetourStatut
