@@ -1,5 +1,4 @@
-﻿using Data.Models.Salesforce;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -51,6 +50,7 @@ namespace Entities.V1
 
         public ParcoursClientKYC_PP() { }
 
+        /*
         public ParcoursClientKYC_PP(Parcours_Client__c pc)
         {
             Id = pc.Id;
@@ -74,12 +74,46 @@ namespace Entities.V1
             Statut = pc.Statut__c;
             ListeDocumentAFournir = pc.Piece_joindre__c==null?new List<string>():pc.Piece_joindre__c.Split(';').ToList();
         }
+        */
 
 
         public class RetourStatut
         {
             public string Statut { get; set; }
             public List<string> ListeDocumentAFournir { get; set; }
+        }
+
+        public class Update
+        {
+            //Etat civil
+            public string CiviliteClient { get; set; }
+            public string NomUsageClient { get; set; }
+            public string NomNaissanceClient { get; set; }
+            public string Prenom1Client { get; set; }
+            public string Prenom2Client { get; set; }
+            public string Prenom3Client { get; set; }
+            public DateTime? DateNaissanceClient { get; set; }
+            public string DepartementNaissanceClient { get; set; }
+            public string VilleNaissanceClient { get; set; }
+            public string Nationalite1Client { get; set; }
+            public string Nationalite2Client { get; set; }
+            public string Nationalite3Client { get; set; }
+            public string Nationalite4Client { get; set; }
+            public string SituationFamilialeClient { get; set; }
+            public string RegimeMatrimonialClient { get; set; }
+            public string RegimeMatrimonialAutreClient { get; set; }
+            public string NomNaissanceConjoint { get; set; }
+            public string PrenomNaissanceConjoint { get; set; }
+
+            //PI: Piece Identite
+            public string TypePIClient { get; set; }
+            public string NumeroPIClient { get; set; }
+            public DateTime? DateExpirationPIClient { get; set; }
+
+            //Coordonnees
+            public string TelephoneDomicileClient { get; set; }
+            public string TelephoneMobileClient { get; set; }
+            public string AdresseEmailClient { get; set; }
         }
 
         /*

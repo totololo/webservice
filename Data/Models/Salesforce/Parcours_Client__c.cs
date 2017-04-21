@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Data.Models.Salesforce
 {
-    public class Parcours_Client__c
+    public partial class Parcours_Client__c
     {
         [Key]
         [Display(Name = "Record ID")]

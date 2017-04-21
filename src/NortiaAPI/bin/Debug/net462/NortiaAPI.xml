@@ -120,7 +120,7 @@
             <response code="201">Created</response>
             <response code="500">Error</response>
         </member>
-        <member name="M:NortiaAPI.Controllers.V1.ParcoursClientKYCPPController.UpdateParcoursClientKYCPP(System.String,Entities.V1.ParcoursClientKYC_PP)">
+        <member name="M:NortiaAPI.Controllers.V1.ParcoursClientKYCPPController.UpdateParcoursClientKYCPP(System.String,Entities.V1.ParcoursClientKYC_PP.Update)">
             <summary>
             Update one parcours client souscription.
             </summary>
@@ -128,7 +128,7 @@
             Client property not present or null ==> unchanged
             </remarks>
             <param name="id">The parcours client souscription id</param>
-            <param name="parClKYC_PP">The parcours client connaissance client PP client properties</param>
+            <param name="updateRecord">The parcours client connaissance client PP client properties</param>
             <returns>null with an HTTP 204, warning message with an HTTP 404, or error message with an HTTP 500</returns>
             <response code="200">Updated with status return</response>
             <response code="204">Updated</response>
