@@ -9,6 +9,17 @@ namespace Data.Models.Salesforce
 {
     public partial class Parcours_Client__c
     {
+        public Parcours_Client__c() { }
+
+
+        //Parcours Client KYC
+        public Parcours_Client__c(ParcoursClientKYC_PP.AddParcoursClientKYC_PP addRecord)
+        {
+            RecordTypeId = addRecord.Id_RecordType;
+            Compte_client__c = addRecord.Id_Client;
+            Parcours_lie__c = addRecord.Id_ParcoursClient;
+        }
+
         public ParcoursClientKYC_PP GetParcoursClientKYC_PP()
         {
             ParcoursClientKYC_PP pcKYC_PP = new ParcoursClientKYC_PP();
@@ -34,11 +45,10 @@ namespace Data.Models.Salesforce
             pcKYC_PP.Statut = Statut__c;
             pcKYC_PP.ListeDocumentAFournir = Piece_joindre__c == null ? new List<string>() : Piece_joindre__c.Split(';').ToList();
 
-
             return pcKYC_PP;
         }
 
-        public void UpdateParcoursClientKYC_PP(ParcoursClientKYC_PP.Update updateRecord)
+        public void UpdateParcoursClientKYC_PP(ParcoursClientKYC_PP.UpdateParcoursClientKYC_PP updateRecord)
         {
             Civilite__c = updateRecord.CiviliteClient == null ? Civilite__c : updateRecord.CiviliteClient;
             Nom_usage__c = updateRecord.NomUsageClient == null ? Nom_usage__c : updateRecord.NomUsageClient;
@@ -61,5 +71,17 @@ namespace Data.Models.Salesforce
             Num_piece__c = updateRecord.NumeroPIClient == null ? Num_piece__c : updateRecord.NumeroPIClient;
             Date_expiration__c = updateRecord.DateExpirationPIClient == null ? Date_expiration__c : updateRecord.DateExpirationPIClient;
         }
+
+
+        //Parcours Client Souscription
+        //public Parcours_Client__c(ParcoursClientSouscription.Add addRecord){}
+        public ParcoursClientSouscription GetParcoursSouscription()
+        {
+            ParcoursClientSouscription pcs = new ParcoursClientSouscription();
+
+            return pcs;
+        }
+
+        //public void ParcoursClientSouscription(ParcoursClientSouscription.Update updateRecord) {}
     }
 }

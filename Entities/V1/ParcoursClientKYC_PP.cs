@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -48,8 +49,6 @@ namespace Entities.V1
         public string Statut { get; set; }
         public List<string> ListeDocumentAFournir { get; set; }
 
-        public ParcoursClientKYC_PP() { }
-
         /*
         public ParcoursClientKYC_PP(Parcours_Client__c pc)
         {
@@ -83,7 +82,18 @@ namespace Entities.V1
             public List<string> ListeDocumentAFournir { get; set; }
         }
 
-        public class Update
+        public class AddParcoursClientKYC_PP
+        {
+            [JsonIgnore]
+            public string Id_RecordType { get; set; }
+
+            [JsonProperty(Required = Required.Always)]
+            public string Id_Client { get; set; }
+
+            public string Id_ParcoursClient { get; set; }
+        }
+
+        public class UpdateParcoursClientKYC_PP
         {
             //Etat civil
             public string CiviliteClient { get; set; }

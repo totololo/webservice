@@ -1,3 +1,4 @@
-#:c:\DEV\WebService\src\NortiaAPI\NortiaAPI.xproj
-c:\DEV\WebService\src\NortiaAPI\NortiaAPI.xproj|c:\DEV\WebService\Data\Data.csproj
-c:\DEV\WebService\src\NortiaAPI\NortiaAPI.xproj|c:\DEV\WebService\Entities\Entities.csproj
+#:C:\DEV\WebService\src\NortiaAPI\NortiaAPI.xproj
+C:\DEV\WebService\src\NortiaAPI\NortiaAPI.xproj|C:\DEV\WebService\Data\Data.csproj
+C:\DEV\WebService\src\NortiaAPI\NortiaAPI.xproj|C:\DEV\WebService\Entities\Entities.csproj
+C:\DEV\WebService\Data\Data.csproj|C:\DEV\WebService\Entities\Entities.csproj

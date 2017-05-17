@@ -43,11 +43,11 @@ namespace NortiaAPI.Controllers.V1
 
 
         /// <summary>
-        /// Find one client by id.
+        /// Find one Contrat by id.
         /// </summary>
-        /// <param name="id">The client id</param>
-        /// <returns>The client with an HTTP 200, null with an HTTP 404, or error message with an HTTP 500</returns>
-        /// <response code="200">The client</response>
+        /// <param name="id">The contrat id</param>
+        /// <returns>The contrat with an HTTP 200, null with an HTTP 404, or error message with an HTTP 500</returns>
+        /// <response code="200">The contrat</response>
         /// <response code="404">Null (not found)</response>
         /// <response code="500">Error message</response>
         [HttpGet("{id}")]

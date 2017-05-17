@@ -4,13 +4,16 @@
 <Properties>
 <Property Name="Solution" Value="C:\DEV\WebService\WebService.sln"></Property>
 <Property Name="Solution File" Value="C:\DEV\WebService"></Property>
-<Property Name="Date" Value="20/04/2017 11:24:34"></Property>
+<Property Name="Date" Value="09/05/2017 18:39:45"></Property>
 </Properties>
 <Event ErrorLevel="3" Project="Data" Source="app.config" Description="No need to convert"></Event>
 <Event ErrorLevel="3" Project="Data" Source="Models" Description="No need to convert"></Event>
 <Event ErrorLevel="3" Project="Data" Source="Salesforce" Description="No need to convert"></Event>
 <Event ErrorLevel="3" Project="Data" Source="Account.cs" Description="No need to convert"></Event>
+<Event ErrorLevel="3" Project="Data" Source="Account_Function.cs" Description="No need to convert"></Event>
+<Event ErrorLevel="3" Project="Data" Source="NortiaContract__c.cs" Description="No need to convert"></Event>
 <Event ErrorLevel="3" Project="Data" Source="Parcours_Client__c.cs" Description="No need to convert"></Event>
+<Event ErrorLevel="3" Project="Data" Source="Parcours_Client__c_Function.cs" Description="No need to convert"></Event>
 <Event ErrorLevel="3" Project="Data" Source="RecordType.cs" Description="No need to convert"></Event>
 <Event ErrorLevel="3" Project="Data" Source="packages.config" Description="No need to convert"></Event>
 <Event ErrorLevel="3" Project="Data" Source="Properties" Description="No need to convert"></Event>

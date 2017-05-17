@@ -33,6 +33,7 @@
         "bin/Debug/Entities.dll": {}
       },
       "runtime": {
+        "../packages/Newtonsoft.Json.10.0.2/lib/net45/Newtonsoft.Json.dll": {},
         "bin/Debug/Entities.dll": {}
       },
       "contentFiles": {

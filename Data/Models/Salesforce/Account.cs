@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Data.Models.Salesforce
 {
-    public class Account
+    public partial class Account
     {
         [Key]
         [Display(Name = "Account ID")]
@@ -1028,18 +1028,6 @@ namespace Data.Models.Salesforce
 
         [Display(Name = "Estimation du patrimoine du foyer fiscal")]
         public double? Estim_patrimoine_foyer_fisc__pc { get; set; }
-
-        [Display(Name = "Placements financiers")]
-        public bool? Ventile_placement_financier__pc { get; set; }
-
-        [Display(Name = "Pourcentage lié aux placements")]
-        public double? Pourcent_placements__pc { get; set; }
-
-        [Display(Name = "Immobilier")]
-        public bool? Ventile_immobilier__pc { get; set; }
-
-        [Display(Name = "Pourcentage lié à l'immobilier")]
-        public double? Pourcent_immo__pc { get; set; }
 
         [Display(Name = "Biens professionnels")]
         public bool? Ventile_bien_pro__pc { get; set; }

@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Globalization;
 using System.Linq;
+using System.Net.Http;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,6 +20,7 @@ namespace Data.Salesforce
     public static class SalesforceService
     {
         private static ForceClient Client;
+        
 
         /// <summary>
         /// Gets a ForceClient that has been authenticated using the UserName, Password, and SecurityToken settings
@@ -68,13 +70,14 @@ namespace Data.Salesforce
             return setting;
         }
 
+
+
         public static async Task<List<T>> GetObjectFromQuery<T>(string query, bool withDeleted = false) where T : class
         {
             List<T> listeRetour = new List<T>();
 
             if (Client == null)
                 Client = await GetUserNamePasswordForceClientAsync();
-
 
             QueryResult<T> response;
             if (withDeleted)
@@ -96,11 +99,16 @@ namespace Data.Salesforce
             return listeRetour;
         }
 
-        public static async Task<List<T>> GetObject<T>(string clauseWhere = "", bool withDeleted = false) where T : class
+        public static async Task<List<T>> GetObject<T>(string clauseWhere = "", bool withDeleted = false, IEnumerable<string> listePropertyNames = null) where T : class
         {
             Type typeT = typeof(T);
             IList<PropertyInfo> propsT = new List<PropertyInfo>(typeT.GetProperties());
-            string listField = string.Join(",", propsT.Select(x => x.Name));
+
+            string listField="";
+            if (listePropertyNames != null)
+                listField= string.Join(",", listePropertyNames.Distinct().Where(o => propsT.Select(x => x.Name).Contains(o)));
+            else 
+                listField = string.Join(",", propsT.Select(x => x.Name));
 
             string soql = "SELECT " + listField + " FROM " + typeT.Name;
             if (!string.IsNullOrWhiteSpace(clauseWhere))
@@ -109,10 +117,11 @@ namespace Data.Salesforce
             return (await GetObjectFromQuery<T>(soql, withDeleted));
 
         }
-        public static async Task<T> GetObjectFromId<T>(string id,string clauseWhere="") where T : class
+
+        public static async Task<T> GetObjectFromId<T>(string id,string clauseWhere="", IEnumerable<string> listePropertyNames = null) where T : class
         {
             string soqlWhere = "Id='"+id+"'"+ (string.IsNullOrWhiteSpace(clauseWhere)?"":" and "+ clauseWhere);
-            List<T> retour =(await GetObject<T>(soqlWhere));
+            List<T> retour =(await GetObject<T>(soqlWhere,false, listePropertyNames));
 
             if (retour != null && retour.Count() > 0)
                 return retour.First();
@@ -142,6 +151,7 @@ namespace Data.Salesforce
 
         public static async Task<bool> UpdateFromObject<T>(string id, T record) where T : class
         {
+           
             try
             {
                 if (Client == null)
@@ -168,6 +178,8 @@ namespace Data.Salesforce
                     Client = await GetUserNamePasswordForceClientAsync();
 
                 bool retour = await Client.DeleteAsync(typeof(T).Name, id);
+
+     
 
                 return retour;
             }

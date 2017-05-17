@@ -2,3 +2,6 @@ c:\DEV\WebService\Entities\bin\Debug\Entities.dll
 c:\DEV\WebService\Entities\bin\Debug\Entities.pdb
 c:\DEV\WebService\Entities\obj\Debug\Entities.dll
 c:\DEV\WebService\Entities\obj\Debug\Entities.pdb
+C:\DEV\WebService\Entities\bin\Debug\Newtonsoft.Json.dll
+C:\DEV\WebService\Entities\bin\Debug\Newtonsoft.Json.xml
+C:\DEV\WebService\Entities\obj\Debug\Entities.csprojResolveAssemblyReference.cache

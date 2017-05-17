@@ -40,33 +40,6 @@ namespace NortiaAPI.Controllers.V1
 
 
         /// <summary>
-        /// Get all parcours clients connaissance client PP of one client
-        /// </summary>
-        /// <param name="id">The client id</param>
-        /// <returns>The list of parcours clients connaissance client PP with an HTTP 200, or error message with an HTTP 500</returns>
-        /// <response code="200">Ok</response>
-        /// <response code="500">Error</response>
-        [HttpGet("Client/{id}")]
-        [ProducesResponseType(200)]
-        [ProducesResponseType(500)]
-        public IActionResult GetParcoursClientsKYCPPByClientId(string id)
-        {
-            try
-            {
-                string soqlWhere = "recordtype.DeveloperName='Connaissance_client_personne_physique' and Compte_client__c='" + id + "'";
-                IEnumerable<Parcours_Client__c> listeParClient = SalesforceService.GetObject<Parcours_Client__c>(soqlWhere).Result;
-                IEnumerable<ParcoursClientKYC_PP> listeParClientCCPP = listeParClient.Select(pc => pc.GetParcoursClientKYC_PP());
-
-                return Ok(listeParClientCCPP);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, ex.Message);
-            }
-        }
-
-
-        /// <summary>
         /// Find parcours client connaissance client PP  by id.
         /// </summary>
         /// <param name="id">The parcours client connaissance client PP id</param>
@@ -97,6 +70,33 @@ namespace NortiaAPI.Controllers.V1
 
 
         /// <summary>
+        /// Get all parcours clients connaissance client PP of one client
+        /// </summary>
+        /// <param name="id">The client id</param>
+        /// <returns>The list of parcours clients connaissance client PP with an HTTP 200, or error message with an HTTP 500</returns>
+        /// <response code="200">Ok</response>
+        /// <response code="500">Error</response>
+        [HttpGet("Client/{id}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(500)]
+        public IActionResult GetParcoursClientsKYCPPByClientId(string id)
+        {
+            try
+            {
+                string soqlWhere = "recordtype.DeveloperName='Connaissance_client_personne_physique' and Compte_client__c='" + id + "'";
+                IEnumerable<Parcours_Client__c> listeParClient = SalesforceService.GetObject<Parcours_Client__c>(soqlWhere).Result;
+                IEnumerable<ParcoursClientKYC_PP> listeParClientCCPP = listeParClient.Select(pc => pc.GetParcoursClientKYC_PP());
+
+                return Ok(listeParClientCCPP);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+
+        /// <summary>
         /// Create a parcours client connaissance client PP.
         /// </summary>
         /// <param name="idClient">The client id</param>
@@ -107,28 +107,29 @@ namespace NortiaAPI.Controllers.V1
         [HttpPost]
         [ProducesResponseType(201)]
         [ProducesResponseType(500)]
-        public IActionResult AddParcoursClientKYCPP([FromBody, Required] string idClient, [FromBody] string IdParcoursClient="")
+        public IActionResult AddParcoursClientKYCPP([FromBody, Required] ParcoursClientKYC_PP.AddParcoursClientKYC_PP addRecord)
+        //public IActionResult AddParcoursClientKYCPP([FromBody, Required] string idClient, [FromBody] string IdParcoursClient = null)
         {
             try
             {
                 string soqlWhere = "IsActive=true and DeveloperName='Connaissance_client_personne_physique' and SobjectType='Parcours_Client__c'";
                 RecordType recordtype = SalesforceService.GetObject<RecordType>(soqlWhere).Result.First();
+                addRecord.Id_RecordType = recordtype.Id;
 
-                Parcours_Client__c pcTemp = new Parcours_Client__c { RecordTypeId = recordtype.Id, Compte_client__c = idClient, Parcours_lie__c = IdParcoursClient };
-                string id = SalesforceService.AddFromObject(new Parcours_Client__c { RecordTypeId = recordtype.Id, Compte_client__c = idClient, Parcours_lie__c= IdParcoursClient }).Result;
+                Parcours_Client__c pcTemp = new Parcours_Client__c(addRecord);
+                //Parcours_Client__c pcTemp = new Parcours_Client__c { RecordTypeId = recordtype.Id, Compte_client__c = idClient, Parcours_lie__c = IdParcoursClient };
+                string id = SalesforceService.AddFromObject(pcTemp).Result;
 
-                soqlWhere = "recordtype.DeveloperName='Connaissance_client_personne_physique'";
-                Parcours_Client__c pc = SalesforceService.GetObjectFromId<Parcours_Client__c>(id, soqlWhere).Result;
+                Parcours_Client__c pc = SalesforceService.GetObjectFromId<Parcours_Client__c>(id).Result;
                 if (pc != null)
                 {
                     ParcoursClientKYC_PP pcs = pc.GetParcoursClientKYC_PP();
-
                     return CreatedAtRoute("FindParcoursClientKYCPPById", new { id = id }, pcs);
                 }
                 else
                 {
                     pcTemp.Id = id;
-                    return CreatedAtRoute("FindParcoursClientKYCPPById", new { id = id }, pcTemp);
+                    return CreatedAtRoute("FindParcoursClientKYCPPById", new { id = id }, pcTemp.GetParcoursClientKYC_PP());
                 }
             }
             catch (Exception ex)
@@ -157,7 +158,7 @@ namespace NortiaAPI.Controllers.V1
         [ProducesResponseType(404)]
         [ProducesResponseType(500)]
         [ProducesResponseType(502)]
-        public IActionResult UpdateParcoursClientKYCPP(string id, [FromBody, Required] ParcoursClientKYC_PP.Update updateRecord)
+        public IActionResult UpdateParcoursClientKYCPP(string id, [FromBody, Required] ParcoursClientKYC_PP.UpdateParcoursClientKYC_PP updateRecord)
         {
             try
             {
