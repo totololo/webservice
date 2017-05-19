@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETFramework,Version=v4.6.2/",
-    "signature": "17cc67c40b6cfef4acd8127acb53429221a29bc6"
+    "signature": "a9443faa1471d0d22cf16affc9a6596e51cdabca"
   },
   "compilationOptions": {
     "defines": [
@@ -32,7 +32,8 @@
           "Microsoft.Extensions.Logging.Debug": "1.1.2",
           "Microsoft.Extensions.Options.ConfigurationExtensions": "1.1.2",
           "Newtonsoft.Json": "10.0.2",
-          "Swashbuckle.AspNetCore": "1.0.0"
+          "Swashbuckle.AspNetCore": "1.0.0",
+          "System.Data.Common": "4.3.0"
         },
         "compile": {
           "NortiaAPI.exe": {}
@@ -1037,6 +1038,15 @@
           "ref/net46/System.Console.dll": {}
         }
       },
+      "System.Data.Common/4.3.0": {
+        "dependencies": {
+          "System.Data": "4.0.0.0",
+          "mscorlib": "4.0.0.0"
+        },
+        "compile": {
+          "ref/net451/System.Data.Common.dll": {}
+        }
+      },
       "System.Diagnostics.Contracts/4.0.0.0": {
         "compile": {
           ".NETFramework/v4.6.2/Facades/System.Diagnostics.Contracts.dll": {}
@@ -1400,6 +1410,11 @@
           ".NETFramework/v4.6.2/Facades/System.Runtime.Extensions.dll": {}
         }
       },
+      "System.Data/4.0.0.0": {
+        "compile": {
+          ".NETFramework/v4.6.2/System.Data.dll": {}
+        }
+      },
       "System.IO.Compression.FileSystem/4.0.0.0": {
         "compile": {
           ".NETFramework/v4.6.2/System.IO.Compression.FileSystem.dll": {}
@@ -1453,7 +1468,8 @@
           "Microsoft.Extensions.Logging.Debug": "1.1.2",
           "Microsoft.Extensions.Options.ConfigurationExtensions": "1.1.2",
           "Newtonsoft.Json": "10.0.2",
-          "Swashbuckle.AspNetCore": "1.0.0"
+          "Swashbuckle.AspNetCore": "1.0.0",
+          "System.Data.Common": "4.3.0"
         },
         "runtime": {
           "NortiaAPI.exe": {}
@@ -2442,6 +2458,15 @@
           "lib/net46/System.Console.dll": {}
         }
       },
+      "System.Data.Common/4.3.0": {
+        "dependencies": {
+          "System.Data": "4.0.0.0",
+          "mscorlib": "4.0.0.0"
+        },
+        "runtime": {
+          "lib/net451/System.Data.Common.dll": {}
+        }
+      },
       "System.Diagnostics.Contracts/4.0.0.0": {},
       "System.Diagnostics.Debug/4.0.10.0": {},
       "System.Diagnostics.DiagnosticSource/4.3.1": {
@@ -2708,6 +2733,7 @@
       "System.ComponentModel.DataAnnotations/4.0.0.0": {},
       "System.Runtime/4.0.20.0": {},
       "System.Runtime.Extensions/4.0.10.0": {},
+      "System.Data/4.0.0.0": {},
       "System.IO.Compression.FileSystem/4.0.0.0": {},
       "System.Numerics/4.0.0.0": {},
       "System.IO/4.0.10.0": {},
@@ -3188,6 +3214,11 @@
       "serviceable": true,
       "sha512": "sha512-DHDrIxiqk1h03m6khKWV2X8p/uvN79rgSqpilL6uzpmSfxfU5ng8VcPtW4qsDsQDHiTv6IPV9TmD5M/vElPNLg=="
     },
+    "System.Data.Common/4.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-lm6E3T5u7BOuEH0u18JpbJHxBfOJPuCyl4Kg1RH10ktYLp5uEEE1xKrHW56/We4SnZpGAuCc9N0MJpSDhTHZGQ=="
+    },
     "System.Diagnostics.Contracts/4.0.0.0": {
       "type": "referenceassembly",
       "serviceable": false,
@@ -3484,6 +3515,11 @@
       "sha512": ""
     },
     "System.Runtime.Extensions/4.0.10.0": {
+      "type": "referenceassembly",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "System.Data/4.0.0.0": {
       "type": "referenceassembly",
       "serviceable": false,
       "sha512": ""

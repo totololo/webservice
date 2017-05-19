@@ -4,11 +4,11 @@
         <name>NortiaAPI</name>
     </assembly>
     <members>
-        <member name="M:NortiaAPI.Controllers.V1.ClientController.GetClients(System.String)">
+        <member name="M:NortiaAPI.Controllers.V1.ClientController.GetClients(System.Nullable{Entities.V1.ClientType})">
             <summary>
             Get all clients.
             </summary>
-            <param name="type">The client type: PP or PM</param>
+            <param name="type">The client type: null=ALL (default), 1=PP or 2=PM</param>
             <returns>The list of client with an HTTP 200, or error message with an HTTP 500</returns>
             <response code="200">The list of client</response>
             <response code="500">Error message</response>
@@ -23,19 +23,68 @@
             <response code="404">Null (not found)</response>
             <response code="500">Error message</response>
         </member>
-        <member name="M:NortiaAPI.Controllers.V1.ClientController.AddClient(Entities.V1.Client)">
+        <member name="M:NortiaAPI.Controllers.V1.ClientController.AddClient(Entities.V1.Client.AddClient)">
             <summary>
             Create a client.
             </summary>
             <remarks>
             Don't specify the id
             </remarks>
-            <param name="client">The client properties</param>
+            <param name="addRecord">The client properties</param>
+            <returns>The client id with an HTTP 201, or error message with an HTTP 500</returns>
+            <response code="201">The client id (created)</response>
+            <response code="500">Error message</response>
+        </member>
+        <member name="M:NortiaAPI.Controllers.V1.ClientController.UpdateClient(System.String,Entities.V1.Client.UpdateClient)">
+            <summary>
+            Update a client.
+            </summary>
+            <param name="id">The client id</param>
+            <param name="updateRecord">The client properties</param>
             <returns>The client id with an HTTP 201, or error message with an HTTP 500</returns>
             <response code="201">The client id (created)</response>
             <response code="500">Error message</response>
         </member>
         <member name="M:NortiaAPI.Controllers.V1.ClientController.DeleteClientrById(System.String)">
+            <summary>
+            Delete one client by id.
+            </summary>
+            <param name="id">The client id</param>
+            <returns>null with an HTTP 204, or error message with an HTTP 500</returns>
+            <response code="204">Null (Deleted)</response>
+            <response code="500">Error message</response>
+        </member>
+        <member name="M:NortiaAPI.Controllers.V1.ContratController.GetContrats">
+            <summary>
+            Get all contrat .
+            </summary>
+            <returns>The list of contrat with an HTTP 200, or error message with an HTTP 500</returns>
+            <response code="200">The list of client</response>
+            <response code="500">Error message</response>
+        </member>
+        <member name="M:NortiaAPI.Controllers.V1.ContratController.FindContratById(System.String)">
+            <summary>
+            Find one Contrat by id.
+            </summary>
+            <param name="id">The contrat id</param>
+            <returns>The contrat with an HTTP 200, null with an HTTP 404, or error message with an HTTP 500</returns>
+            <response code="200">The contrat</response>
+            <response code="404">Null (not found)</response>
+            <response code="500">Error message</response>
+        </member>
+        <member name="M:NortiaAPI.Controllers.V1.ContratController.AddContrat(Entities.V1.Contrat)">
+            <summary>
+            Create a client.
+            </summary>
+            <remarks>
+            Don't specify the id
+            </remarks>
+            <param name="contrat">The client properties</param>
+            <returns>The client id with an HTTP 201, or error message with an HTTP 500</returns>
+            <response code="201">The client id (created)</response>
+            <response code="500">Error message</response>
+        </member>
+        <member name="M:NortiaAPI.Controllers.V1.ContratController.DeleteClientrById(System.String)">
             <summary>
             Delete one client by id.
             </summary>
@@ -52,15 +101,6 @@
             <response code="200">Ok</response>
             <response code="500">Error</response>
         </member>
-        <member name="M:NortiaAPI.Controllers.V1.ParcoursClientKYCPPController.GetParcoursClientsKYCPPByClientId(System.String)">
-            <summary>
-            Get all parcours clients connaissance client PP of one client
-            </summary>
-            <param name="id">The client id</param>
-            <returns>The list of parcours clients connaissance client PP with an HTTP 200, or error message with an HTTP 500</returns>
-            <response code="200">Ok</response>
-            <response code="500">Error</response>
-        </member>
         <member name="M:NortiaAPI.Controllers.V1.ParcoursClientKYCPPController.FindParcoursClientKYCPPById(System.String)">
             <summary>
             Find parcours client connaissance client PP  by id.
@@ -71,7 +111,16 @@
             <response code="404">Not found</response>
             <response code="500">Error</response>
         </member>
-        <member name="M:NortiaAPI.Controllers.V1.ParcoursClientKYCPPController.AddParcoursClientKYCPP(System.String,System.String)">
+        <member name="M:NortiaAPI.Controllers.V1.ParcoursClientKYCPPController.GetParcoursClientsKYCPPByClientId(System.String)">
+            <summary>
+            Get all parcours clients connaissance client PP of one client
+            </summary>
+            <param name="id">The client id</param>
+            <returns>The list of parcours clients connaissance client PP with an HTTP 200, or error message with an HTTP 500</returns>
+            <response code="200">Ok</response>
+            <response code="500">Error</response>
+        </member>
+        <member name="M:NortiaAPI.Controllers.V1.ParcoursClientKYCPPController.AddParcoursClientKYCPP(Entities.V1.ParcoursClientKYC_PP.AddParcoursClientKYC_PP)">
             <summary>
             Create a parcours client connaissance client PP.
             </summary>
@@ -81,27 +130,21 @@
             <response code="201">Created</response>
             <response code="500">Error</response>
         </member>
-        <member name="M:NortiaAPI.Controllers.V1.ParcoursClientKYCPPController.UpdateParcoursClientKYCPP_Client_Etape1(System.String,Entities.V1.ParcoursClientKYC_PP.Client_Etape1)">
+        <member name="M:NortiaAPI.Controllers.V1.ParcoursClientKYCPPController.UpdateParcoursClientKYCPP(System.String,Entities.V1.ParcoursClientKYC_PP.UpdateParcoursClientKYC_PP)">
             <summary>
-            Update one parcours client souscription (client - Etape1).
+            Update one parcours client souscription.
             </summary>
+            <remarks>
+            Client property not present or null ==> unchanged
+            </remarks>
             <param name="id">The parcours client souscription id</param>
-            <param name="clientE1">The parcours client connaissance client PP client step 1 properties</param>
+            <param name="updateRecord">The parcours client connaissance client PP client properties</param>
             <returns>null with an HTTP 204, warning message with an HTTP 404, or error message with an HTTP 500</returns>
+            <response code="200">Updated with status return</response>
             <response code="204">Updated</response>
             <response code="404">Not found</response>
             <response code="500">Error</response>
-        </member>
-        <member name="M:NortiaAPI.Controllers.V1.ParcoursClientKYCPPController.UpdateParcoursClientKYCPP_Client_Etape2(System.String,Entities.V1.ParcoursClientKYC_PP.Client_Etape2)">
-            <summary>
-            Update one parcours client souscription (client - Etape2).
-            </summary>
-            <param name="id">The parcours client connaissance client PP id</param>
-            <param name="clientE2">The parcours client connaissance client PP client step 2 properties</param>
-            <returns>null with an HTTP 204, warning message with an HTTP 404, or error message with an HTTP 500</returns>
-            <response code="204">Updated</response>
-            <response code="404">Not found</response>
-            <response code="500">Error</response>
+            <response code="502">Error Update server distant</response>
         </member>
         <member name="M:NortiaAPI.Controllers.V1.ParcoursClientKYCPPController.DeleteParcoursClientKYCPPById(System.String)">
             <summary>
@@ -155,6 +198,16 @@
             <param name="id">The parcours client souscription id</param>
             <returns>null with an HTTP 204, or error message with an HTTP 500</returns>
             <response code="204">Deleted</response>
+            <response code="500">Error</response>
+        </member>
+        <member name="M:NortiaAPI.Controllers.V1.UserController.Login(Entities.V1.User.Identification)">
+            <summary>
+            Get all parcours clients connaissance client PP of one client
+            </summary>
+            <param name="ident">The client id</param>
+            <returns>The list of parcours clients connaissance client PP with an HTTP 200, or error message with an HTTP 500</returns>
+            <response code="200">Ok</response>
+            <response code="401">Unauthorized</response>
             <response code="500">Error</response>
         </member>
     </members>

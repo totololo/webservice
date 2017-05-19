@@ -20,11 +20,11 @@ namespace Data.Models.Salesforce
         }
 
         //Client
-        public static List<string> ClientPropertyNames = new List<string> { "Id", "Salutation", "LastName","Prenom_2__pc", "Prenom_3__pc", "Name", "FirstName", "RecordTypeId" };
+        public static List<string> ClientPropertyNames = new List<string> { "Id", "AccountNumber", "Salutation", "LastName","Prenom_2__pc", "Prenom_3__pc", "Name", "FirstName", "RecordTypeId" };
 
         public Account(Client.AddClient client)
         {
-            Salutation= (client.Type == ClientType.PM) ? null : (client.Civilite==ClientCivilite.Madame? "Madame" : client.Civilite == ClientCivilite.Monsieur?"Monsieur":null);
+            Salutation = (client.Type == ClientType.PM) ? null : (client.Civilite==ClientCivilite.Madame? "Madame" : client.Civilite == ClientCivilite.Monsieur?"Monsieur":null);
             FirstName = (client.Type == ClientType.PM) ? null : client.Prenom1;
             Prenom_2__pc = (client.Type == ClientType.PM) ? null : client.Prenom2;
             Prenom_3__pc = (client.Type == ClientType.PM) ? null : client.Prenom3;
@@ -40,6 +40,7 @@ namespace Data.Models.Salesforce
             Client client = new Client();
 
             client.Id = Id;
+            client.CodeNortia = AccountNumber;
             if (string.IsNullOrWhiteSpace(Salutation))
                 client.Civilite =null;
             else

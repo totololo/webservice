@@ -200,5 +200,15 @@
             <response code="204">Deleted</response>
             <response code="500">Error</response>
         </member>
+        <member name="M:NortiaAPI.Controllers.V1.UserController.Login(Entities.V1.User.Identification)">
+            <summary>
+            Get all parcours clients connaissance client PP of one client
+            </summary>
+            <param name="ident">The client id</param>
+            <returns>The list of parcours clients connaissance client PP with an HTTP 200, or error message with an HTTP 500</returns>
+            <response code="200">Ok</response>
+            <response code="401">Unauthorized</response>
+            <response code="500">Error</response>
+        </member>
     </members>
 </doc>

@@ -50,6 +50,7 @@
     <Compile Include="V1\ParcoursClientKYC_PP.cs" />
     <Compile Include="V1\ParcoursClientSouscription.cs" />
     <Compile Include="V1\Client.cs" />
+    <Compile Include="V1\User.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

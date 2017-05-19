@@ -19,3 +19,5 @@ c:\DEV\WebService\Data\obj\Release\Data.csproj.App.config
 c:\DEV\WebService\Data\obj\Release\Data.dll
 c:\DEV\WebService\Data\obj\Release\Data.pdb
 c:\DEV\WebService\Data\obj\Release\Data.csprojResolveAssemblyReference.cache
+C:\DEV\WebService\Data\bin\Release\Entities.dll
+C:\DEV\WebService\Data\bin\Release\Entities.pdb

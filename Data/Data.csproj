@@ -79,6 +79,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BDD\MSQL\MSQLService.cs" />
+    <Compile Include="Models\MSQL.DWNortia\Utilisateur.cs" />
     <Compile Include="Models\Salesforce\Account.cs" />
     <Compile Include="Models\Salesforce\Account_Function.cs" />
     <Compile Include="Models\Salesforce\NortiaContract__c.cs" />
@@ -101,6 +103,9 @@
       <Project>{67ffcdb6-817d-4647-9d08-9656a988188c}</Project>
       <Name>Entities</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\MSQL.WSNortia\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />

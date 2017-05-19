@@ -107,10 +107,10 @@ namespace NortiaAPI.Controllers.V1
         {
             try
             {
-                /*
+                
                 Client cl = Account.AddClient(addRecord);
                 return CreatedAtRoute("FindClientById", new { id = cl.Id }, cl);
-                */
+                
 
                 /*
                 Account accTemp = new Account(addRecord);
@@ -126,8 +126,6 @@ namespace NortiaAPI.Controllers.V1
                     accTemp.Id = id;
                     return CreatedAtRoute("ClientDefault", new { id = accTemp.Id }, accTemp.ToClient());
                 }*/
-
-                return NoContent();
             }
             catch (Exception ex)
             {

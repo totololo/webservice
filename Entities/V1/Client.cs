@@ -13,6 +13,7 @@ namespace Entities.V1
     public class Client
     {
         public string Id { get; set; }
+        public string CodeNortia { get; set; }
         public ClientCivilite? Civilite { get; set; }
         public string Nom { get; set; }
         public string NomNaissance { get; set; }
