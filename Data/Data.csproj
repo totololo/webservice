@@ -80,7 +80,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BDD\MSQL\MSQLService.cs" />
-    <Compile Include="Models\MSQL.DWNortia\Utilisateur.cs" />
+    <Compile Include="Models\MSQL.WSNortia\Utilisateur.cs" />
     <Compile Include="Models\Salesforce\Account.cs" />
     <Compile Include="Models\Salesforce\Account_Function.cs" />
     <Compile Include="Models\Salesforce\NortiaContract__c.cs" />
@@ -105,7 +105,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Models\MSQL.WSNortia\" />
+    <Folder Include="Models\MSQL.DWNortia\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
