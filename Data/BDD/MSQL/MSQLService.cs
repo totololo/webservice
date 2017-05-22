@@ -41,5 +41,40 @@ namespace Data.BDD.MSQL
             return data;
         }
 
+
+
+        public static List<T> GetObject<T>(string ConnectionString,string clauseWhere = "") where T : new()
+        {
+            List<T> liteT = new List<T>();
+
+
+            Type typeT = typeof(T);
+            
+            IList<PropertyInfo> propsT = new List<PropertyInfo>(typeT.GetProperties());
+
+            string listField = string.Join(",", propsT.Select(x => x.Name));
+
+            string sql = "SELECT " + listField + " FROM " + typeT.Name;
+            if (!string.IsNullOrWhiteSpace(clauseWhere))
+                sql += " WHERE " + clauseWhere;
+
+            DataTable data=GetDataFromQuery(sql, ConnectionString);
+            foreach(DataRow ligne in data.Rows)
+            {
+                T objT = new T();
+                foreach(DataColumn col in data.Columns)
+                {
+                    PropertyInfo propertyInfo = objT.GetType().GetProperty(col.ColumnName);
+                    propertyInfo.SetValue(objT, ligne[col.ColumnName]);
+                }
+
+
+                liteT.Add(objT);
+            }
+
+            return liteT;
+
+        }
+
     }
 }

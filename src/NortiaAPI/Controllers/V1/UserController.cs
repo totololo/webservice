@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 using Entities.V1;
 using Data.BDD.MSQL;
+using Data.Models.MSQL.WSNortia;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -32,6 +33,10 @@ namespace NortiaAPI.Controllers.V1
             {
                 if (ident != null)
                 {
+                    Utilisateur u=MSQLService.GetObject<Utilisateur>(MSQLService.ConnectionString_WSNortia,"Email = '" + ident.Login + "' and Password = '" + ident.Password + "'").First();
+                    return Ok(u);
+
+                    /*
                     string sql = "SELECT * FROM Utilisateur WHERE Email='" + ident.Login + "' and Password='" + ident.Password + "'";
                     System.Data.DataTable data = MSQLService.GetDataFromQuery(sql, MSQLService.ConnectionString_WSNortia);
 
@@ -44,9 +49,10 @@ namespace NortiaAPI.Controllers.V1
                         u.PasswordProvisoire = (bool)data.Rows[0]["PasswordProvisoire"];
 
                         return Ok(u);
+                        
                     }
                     else
-                        return Unauthorized();
+                        return Unauthorized();*/
                 }
                 else
                     return Unauthorized();
